@@ -82,6 +82,10 @@
     <ClInclude Include="Point.h" />
     <ClInclude Include="Voronoi.h" />
   </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="CAdversary.cpp" />
+    <ClCompile Include="CHomeObject.cpp" />
+  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>

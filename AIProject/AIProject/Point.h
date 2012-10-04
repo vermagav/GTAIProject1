@@ -8,7 +8,11 @@ class Point
 private:
 	int iX;
 	int iY;
+
 public:
+	Point(int x, int y):iX(x), iY(y)
+	{}
+
 	int X(){ return iX; }
 	int Y(){ return iY; }
 	void Up(void){ iY++; }

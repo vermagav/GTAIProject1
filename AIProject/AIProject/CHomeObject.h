@@ -1,4 +1,3 @@
-#ifndef C_HOME_OBJECT
 #ifndef CHOME_OBJECT
 #define CHOME_OBJECT
 
@@ -17,9 +16,12 @@ class CHomeObject
 public:
 	vector<Point> CalcVoronoi(priority_queue<Point> points);
 
-protected:
+private:
+	int CalcRadius();
+
 	Point coord;
 	string strName;
+	Voronoi voronoi;
 };
 
 
