@@ -6,20 +6,35 @@
 #include<queue>
 #include<vector>
 #include "Voronoi.h"
+#include "_config.h"
 
-using std::priority_queue;
-using std::string;
-using std::vector;
+/*
+	Main algorithm:
+		1. Compute Radius
+		2. Calculate which objects fall within radius
+		3. Calculate nodes using Voronoi diagram on these objects
+		4. Assign weightage to each node based on:
+			a. Distance from goal
+			b. Distance from closest objects
+			c. Clutter-density factor
+		5. Move one step towards favorable node
+*/
 
 class CHomeObject
 {
 public:
-	vector<Point> CalcVoronoi(priority_queue<Point> points);
+	/*
+	 * Main function for moving the home agent.
+	 * This function calls all other private functions the various steps in our algorithm.
+	 */
+	void MoveObject(vector<CPoint> points); // Calls private functions for steps 1-5
 
 private:
-	int CalcRadius();
-
-	Point coord;
+	std::priority_queue<CPoint> ComputeRelevant(std::vector<CPoint> points); // 1, 2
+	std::vector<CPoint> ComputeNodes(std::priority_queue<CPoint> points); // 3
+	void MoveToNode(std::vector<CPoint> points); // 4, 5
+	
+	CPoint coord;
 	string strName;
 	Voronoi voronoi;
 };

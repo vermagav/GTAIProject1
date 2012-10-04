@@ -2,31 +2,24 @@
 #define CADVERSARY_H
 
 //Cadversary.h v1.0
-#include "Point.h"
+#include "CPoint.h"
+#include "_config.h"
 
-
-enum Mode{
-RANDOM_EASY,
-RANDOM_NORMAL,
-RANDOM_INTELLIGENT,
-NUM_OF_MODES
-};
 
 class CAdversary
 {
 
 public:
-	const int STEP_SIZE = 1;
 
-	void MoveRandom(Mode m);
+	void MoveRandom(DifficultyMode m);
 
-	CAdversary(int x, int y):iId(0), iStepSize(STEP_SIZE), coord(Point(x, y))
+	CAdversary(int x, int y):iId(0), iStepSize(STEP_SIZE_ADVERSARY), coord(CPoint(x, y))
 	{}
 
-protected:
+private:
 	int iId;
 	int iStepSize;
-	Point coord;
+	CPoint coord;
 };
 
 #endif

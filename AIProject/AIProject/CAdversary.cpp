@@ -3,7 +3,7 @@
 #include <time.h>
 
 
-void CAdversary::MoveRandom(Mode m)
+void CAdversary::MoveRandom(DifficultyMode m)
 {
 	srand(time(NULL));
 	/// TODO:Wall cases

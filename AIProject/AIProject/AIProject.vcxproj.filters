@@ -21,22 +21,31 @@
     <ClInclude Include="Voronoi.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Point.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="CAdversary.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="CWorld.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="CPoint.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="_config.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="CAdversary.cpp">
-      <Filter>Header Files</Filter>
+    <ClCompile Include="Voronoi.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="main.cpp">
+      <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="CHomeObject.cpp">
-      <Filter>Header Files</Filter>
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="CAdversary.cpp">
+      <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

@@ -9,9 +9,13 @@ class CWorld
 {
 
 public:
-protected:
+
 private:
-	CHOME_OBJECT robot;
+	// Our home agent
+	CHomeObject robot;
+	// The enemies that oppose our home agent
+	std::vector<CAdversary> enemies;
+	
 
 };
 
