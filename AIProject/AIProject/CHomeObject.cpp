@@ -1,6 +1,5 @@
 #include "CHomeObject.h"
 
-using std::priority_queue;
 using std::string;
 using std::vector;
 
@@ -10,15 +9,15 @@ void CHomeObject::MoveObject(vector<CPoint> points)
 	MoveToNode(ComputeNodes(ComputeRelevant(points)));
 }
 
-priority_queue<CPoint> CHomeObject::ComputeRelevant(vector<CPoint> points)
+vector<CPoint> CHomeObject::ComputeRelevant(vector<CPoint> points)
 {
-	//change name of arg points to sumthing relevant
-
+	/// TODO: change name of arg points to something relevant
+	return points; // temp
 }
 
-vector<CPoint> CHomeObject::ComputeNodes(priority_queue<CPoint> points)
+vector<CPoint> CHomeObject::ComputeNodes(vector<CPoint> points)
 {	
-	//change name of arg points to sumthing relevant
+	/// TODO: change name of arg points to something relevant
 	return voronoi.ComputeVoronoi(points);
 }
 

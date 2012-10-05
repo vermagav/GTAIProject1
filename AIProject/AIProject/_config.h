@@ -9,6 +9,10 @@
 const int STEP_SIZE_HOMEAGENT = 5;
 const int STEP_SIZE_ADVERSARY = 1;
 
+// Start position of home agent
+const int STARTX_HOMEAGENT = 1;
+const int STARTY_HOMEAGENT = 1;
+
 // Number of enemies
 const int NUM_ENEMIES = 10;
 

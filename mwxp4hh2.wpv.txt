@@ -1,0 +1,37 @@
+Minor change
+# Please enter the commit message for your changes. Lines starting
+# with '#' will be ignored, and an empty message aborts the commit.
+# On branch master
+# Changes to be committed:
+#   (use "git reset HEAD <file>..." to unstage)
+#
+#	modified:   AIProject/AIProject.sdf
+#	modified:   AIProject/AIProject.v11.suo
+#	modified:   AIProject/AIProject/CAdversary.cpp
+#	modified:   AIProject/AIProject/CHomeObject.cpp
+#	modified:   AIProject/AIProject/CHomeObject.h
+#	new file:   AIProject/AIProject/Debug/AIProject.lastbuildstate
+#	new file:   AIProject/AIProject/Debug/AIProject.log
+#	new file:   AIProject/AIProject/Debug/AIProject.unsuccessfulbuild
+#	new file:   AIProject/AIProject/Debug/CAdversary.obj
+#	new file:   AIProject/AIProject/Debug/CHomeObject.obj
+#	new file:   AIProject/AIProject/Debug/CL.read.1.tlog
+#	new file:   AIProject/AIProject/Debug/CL.write.1.tlog
+#	new file:   AIProject/AIProject/Debug/Voronoi.obj
+#	new file:   AIProject/AIProject/Debug/cl.command.1.tlog
+#	new file:   AIProject/AIProject/Debug/link-cvtres.read.1.tlog
+#	new file:   AIProject/AIProject/Debug/link-cvtres.write.1.tlog
+#	new file:   AIProject/AIProject/Debug/link-rc.read.1.tlog
+#	new file:   AIProject/AIProject/Debug/link-rc.write.1.tlog
+#	new file:   AIProject/AIProject/Debug/link.command.1.tlog
+#	new file:   AIProject/AIProject/Debug/link.read.1.tlog
+#	new file:   AIProject/AIProject/Debug/link.write.1.tlog
+#	new file:   AIProject/AIProject/Debug/main.obj
+#	new file:   AIProject/AIProject/Debug/vc110.idb
+#	new file:   AIProject/AIProject/Debug/vc110.pdb
+#	modified:   AIProject/AIProject/Voronoi.h
+#	modified:   AIProject/AIProject/_config.h
+#	modified:   AIProject/AIProject/main.cpp
+#	new file:   AIProject/Debug/AIProject.pdb
+#
+

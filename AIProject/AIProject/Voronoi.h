@@ -9,12 +9,11 @@
 #include "CPoint.h"
 
 using std::vector;
-using std::priority_queue;
 
 class Voronoi
 {
 public:
-	vector<CPoint> ComputeVoronoi(priority_queue<CPoint> points);	
+	vector<CPoint> ComputeVoronoi(vector<CPoint> points);	
 };
 
 #endif

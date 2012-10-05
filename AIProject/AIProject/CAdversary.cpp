@@ -6,12 +6,12 @@
 void CAdversary::MoveRandom(DifficultyMode m)
 {
 	srand(time(NULL));
+	int move = rand() % 4;
 	/// TODO:Wall cases
 	switch(m)
 	{
 		case RANDOM_EASY:
 			{
-				int move = rand() % 4;
 				switch(move)
 				{
 				case 0: coord.Right();
@@ -31,7 +31,7 @@ void CAdversary::MoveRandom(DifficultyMode m)
 			case RANDOM_NORMAL:
 				break;
 
-			case RANDOM_INTELLIGENT,
+			case RANDOM_INTELLIGENT:
 				break; 
 	 
 		}

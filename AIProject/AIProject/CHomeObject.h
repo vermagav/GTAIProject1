@@ -30,12 +30,12 @@ public:
 	void MoveObject(vector<CPoint> points); // Calls private functions for steps 1-5
 
 private:
-	std::priority_queue<CPoint> ComputeRelevant(std::vector<CPoint> points); // 1, 2
-	std::vector<CPoint> ComputeNodes(std::priority_queue<CPoint> points); // 3
+	std::vector<CPoint> ComputeRelevant(std::vector<CPoint> points); // 1, 2
+	std::vector<CPoint> ComputeNodes(std::vector<CPoint> points); // 3
 	void MoveToNode(std::vector<CPoint> points); // 4, 5
 	
 	CPoint coord;
-	string strName;
+	std::string strName;
 	Voronoi voronoi;
 };
 
