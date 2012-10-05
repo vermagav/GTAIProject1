@@ -16,6 +16,17 @@ public:
 	CAdversary(int x, int y):iId(0), iStepSize(STEP_SIZE_ADVERSARY), coord(CPoint(x, y))
 	{}
 
+	CPoint getCoord() const
+	{
+		return coord;
+	}
+
+	void SetCoord(CPoint p)
+	{
+		//check point within boundaries
+		coord = p;
+	}
+
 private:
 	int iId;
 	int iStepSize;

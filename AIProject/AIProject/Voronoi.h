@@ -6,14 +6,15 @@
 #include <queue>
 #include <set>
 #include <math.h>
+#include "CPoint.h"
 
 using namespace std;
 
 // Notation for working with points and replace first, second with x, y
 //for notational convenience
-typedef pair<double, double> point;
-#define x first
-#define y second
+// typedef pair<double, double> CPoint;
+// #define x first
+// #define y second
 
 // Arc, event, and segment datatypes
 class CArc;
@@ -22,7 +23,7 @@ class CSegment;
 class CEvent 
 {
 public:
-	CEvent(double xx, point pp, CArc *aa)
+	CEvent(double xx, CPoint pp, CArc *aa)
       : x(xx), p(pp), a(aa), valid(true)
 	{}
 
@@ -36,7 +37,7 @@ public:
 		return a;
 	}
 
-	point GetPoint() const
+	CPoint GetPoint() const
 	{
 		return p;
 	}
@@ -53,7 +54,7 @@ public:
 
 private:
    double x;
-   point p;
+   CPoint p;
    CArc *a;
    bool valid;   
 };
@@ -62,7 +63,7 @@ private:
 class CArc
 {
 public:
-	CArc(point pp, CArc *a=0, CArc *b=0)
+	CArc(CPoint pp, CArc *a=0, CArc *b=0)
     : p(pp), prev(a), next(b), e(0), s0(0), s1(0) 
 	{}
 
@@ -106,7 +107,7 @@ public:
 		s1 = s;
 	}
 
-	point GetPoint()
+	CPoint GetPoint()
 	{
 		return p;
 	}
@@ -122,7 +123,7 @@ public:
 	}
 
 private:
-   point p;
+   CPoint p;
    CArc *prev, *next;
    CEvent *e;
    CSegment *s0, *s1;
@@ -134,13 +135,13 @@ vector<CSegment*> output;  // Array of output segments.
 class CSegment 
 {
 public:
-	CSegment(point p): start(p), end(0,0), done(false)
+	CSegment(CPoint p): start(p), end(0,0), done(false)
 	{
 		output.push_back(this);
 	}
 	   
-	// Set the end point and mark as "done."
-	void finish(point p)
+	// Set the end CPoint and mark as "done."
+	void finish(CPoint p)
 	{
 		if (done) 
 			return; 
@@ -148,35 +149,37 @@ public:
 		done = true;
 	}
 
-	point GetStart() 
+	CPoint GetStart() 
 	{
 		return start;
 	}
 
-	point GetEnd() 
+	CPoint GetEnd() 
 	{
 		return end;
 	}
 
 
 private:
-   point start, end;
+   CPoint start, end;
    bool done;
 };
 
 // "Greater than" comparison, for reverse sorting in priority queue.
-struct gt 
+struct gt1
 {
-   bool operator()(point a, point b) 
+   bool operator()(CPoint a, CPoint b) 
    {
-	   return a.x == b.x ? a.y > b.y : a.x > b.x; 
+	   return a.X() == b.X() ? a.Y() > b.Y() : a.X() > b.X();
    }
+};
 
+struct gt2
+{
    bool operator()(CEvent *a, CEvent *b)
    {
 	   return a->GetX() >b->GetX();
    }
-
 };
 
 
@@ -185,7 +188,7 @@ class Voronoi
 public:
 	void SetPoints();
 
-	vector<CSegment*> ComputeVornoi();
+	vector<CPoint> ComputeVoronoi(priority_queue<CPoint, vector<CPoint>, gt1>);
 
 	// Bounding box coordinates.
 	double X0, X1, Y0, Y1;
@@ -195,19 +198,19 @@ public:
 
 private:
 	CArc *root; // First item in the parabolic front linked list.
-	priority_queue<point,  vector<point>,  gt> points; // site events
-	priority_queue<CEvent*, vector<CEvent*>, gt> events; // circle events
+	priority_queue<CPoint,  vector<CPoint>,  gt1> points; // site events
+	priority_queue<CEvent*, vector<CEvent*>, gt2> events; // circle events
 	
 
 	void process_point();
 	void process_event();
-	void front_insert(point  p);
+	void front_insert(CPoint  p);
 
-	bool circle(point a, point b, point c, double *x, point *o);
+	bool circle(CPoint a, CPoint b, CPoint c, double *x, CPoint *o);
 	void check_circle_event(CArc *i, double x0);
 
-	bool intersect(point p, CArc *i, point *result = 0);
-	point intersection(point p0, point p1, double l);
+	bool intersect(CPoint p, CArc *i, CPoint *result = 0);
+	CPoint intersection(CPoint p0, CPoint p1, double l);
 
 	void finish_edges();
 	void print_output();

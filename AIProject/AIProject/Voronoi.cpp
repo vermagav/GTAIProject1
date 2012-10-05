@@ -4,18 +4,18 @@
 void Voronoi::SetPoints()
 {
 	// Read points from input.
-	point p;
+	CPoint p;
 
-	while (cin >> p.x >> p.y) 
-	{
+	// while (cin >> p.X() >> p.Y()) 
+	//{
 		points.push(p);
 
 		// Keep track of bounding box size.
-		if (p.x < X0) X0 = p.x;
-		if (p.y < Y0) Y0 = p.y;
-		if (p.x > X1) X1 = p.x;
-		if (p.y > Y1) Y1 = p.y;
-   }
+		if (p.X() < X0) X0 = p.X();
+		if (p.Y() < Y0) Y0 = p.Y();
+		if (p.X() > X1) X1 = p.X();
+		if (p.Y() > Y1) Y1 = p.Y();
+   //}
 
    // Add margins to the bounding box.
    double dx = (X1-X0+1)/5.0;
@@ -26,14 +26,15 @@ void Voronoi::SetPoints()
    Y1 += dy;
 }
 
-vector<CSegment*> Voronoi::ComputeVornoi()
+vector<CPoint> Voronoi::ComputeVoronoi(priority_queue<CPoint, vector<CPoint>, gt1> abcdTODO) // TODO
 {
+	vector<CPoint> ret;
 	//set the priority Queue ofPoints and Bounding Points
 	SetPoints();
 	
    // Process the queues; select the top element with smaller x coordinate.
    while (!points.empty())
-	   if (!events.empty() && events.top()->GetX() <= points.top().x)
+	   if (!events.empty() && events.top()->GetX() <= points.top().X())
          process_event();
       else
          process_point();
@@ -48,13 +49,23 @@ vector<CSegment*> Voronoi::ComputeVornoi()
    // Output the voronoi diagram.
    print_output();
 
-   return output;
+    // Each output segment in four-column format.
+   vector<CSegment*>::iterator i;
+   for (i = output.begin(); i != output.end(); i++)
+	{
+	   CPoint p0 = (*i)->GetStart();
+	   CPoint p1 = (*i)->GetEnd();
+	   ret.push_back(p0);
+	   ret.push_back(p1);
+    }
+
+   return ret;
 }
 
 void Voronoi::process_point()
 {
-   // Get the next point from the queue.
-   point p = points.top();
+   // Get the next CPoint from the queue.
+   CPoint p = points.top();
    points.pop();
 
    // Add a new arc to the parabolic front.
@@ -113,7 +124,7 @@ void Voronoi::process_event()
    delete e;
 }
 
-void Voronoi::front_insert(point p)
+void Voronoi::front_insert(CPoint p)
 {
    if (!root)
    {
@@ -124,7 +135,7 @@ void Voronoi::front_insert(point p)
    // Find the current arc(s) at height p.y (if there are any).
    for (CArc *i = root; i; i = i->GetNext()) 
    {
-      point z, zz;
+      CPoint z, zz;
       if (intersect(p,i,&z))
 	  {
 		  // New parabola intersects arc i.  If necessary, duplicate i.
@@ -157,9 +168,9 @@ void Voronoi::front_insert(point p)
 		 i->GetNext()->SetS0(i-> GetS1());
 
          // Check for new circle events around the new arc:
-         check_circle_event(i, p.x);
-		 check_circle_event(i->GetPrev(), p.x);
-         check_circle_event(i->GetNext(), p.x);
+         check_circle_event(i, p.X());
+		 check_circle_event(i->GetPrev(), p.X());
+         check_circle_event(i->GetNext(), p.X());
 
          return;
       }
@@ -174,9 +185,9 @@ void Voronoi::front_insert(point p)
    i->SetNext(new CArc(p,i));
    
    // Insert segment between p and i
-   point start;
-   start.x = X0;
-   start.y = (i->GetNext()->GetPoint().y + i->GetPoint().y) / 2;
+   CPoint start;
+   start.X( X0 );
+   start.Y( (i->GetNext()->GetPoint().Y() + i->GetPoint().Y()) / 2 );
     
    i->GetNext()->SetS0(new CSegment(start));
    i->SetS1(i->GetNext()->GetS0());
@@ -196,7 +207,7 @@ void Voronoi::check_circle_event(CArc *i, double x0)
       return;
 
    double x;
-   point o;
+   CPoint o;
 
    if (circle(i->GetPrev()->GetPoint(), i->GetPoint(), i->GetNext()->GetPoint(), &x, &o) && x > x0)
    {
@@ -207,54 +218,53 @@ void Voronoi::check_circle_event(CArc *i, double x0)
 }
 
 
-// Find the rightmost point on the circle through a,b,c.
-bool Voronoi::circle(point a, point b, point c, double *x, point *o)
+// Find the rightmost CPoint on the circle through a,b,c.
+bool Voronoi::circle(CPoint a, CPoint b, CPoint c, double *x, CPoint *o)
 {
    // Check that bc is a "right turn" from ab.
-   if ((b.x-a.x)*(c.y-a.y) - (c.x-a.x)*(b.y-a.y) > 0)
+   if ((b.X()-a.X())*(c.Y()-a.Y()) - (c.X()-a.X())*(b.Y()-a.Y()) > 0)
       return false;
 
    // Algorithm from O'Rourke 2ed p. 189.
-   double A = b.x - a.x,  B = b.y - a.y,
-          C = c.x - a.x,  D = c.y - a.y,
-          E = A * (a.x + b.x) + B * (a.y + b.y),
-          F = C * (a.x + c.x) + D * (a.y + c.y),
-          G = 2 * (A * (c.y - b.y) - B * (c.x - b.x));
+   double A = b.X() - a.X(),  B = b.Y() - a.Y(),
+          C = c.X() - a.X(),  D = c.Y() - a.Y(),
+          E = A * (a.X() + b.X()) + B * (a.Y() + b.Y()),
+          F = C * (a.X() + c.X()) + D * (a.Y() + c.Y()),
+          G = 2 * (A * (c.Y() - b.Y()) - B * (c.X() - b.X()));
 
    if (G == 0) return false;  // Points are co-linear.
 
    // Point o is the center of the circle.
-   o->x = (D*E-B*F)/G;
-   o->y = (A*F-C*E)/G;
+   o->X( (D*E-B*F)/G );
+   o->Y( (A*F-C*E)/G );
 
    // o.x plus radius equals max x coordinate.
-   *x = o->x + sqrt( pow(a.x - o->x, 2) + pow(a.y - o->y, 2) );
+   *x = o->X() + sqrt( pow(a.X() - o->X(), 2) + pow(a.Y() - o->Y(), 2) );
    return true;
 }
 
-// Will a new parabola at point p intersect with arc i?
-bool Voronoi::intersect(point p, CArc *i, point *res)
+// Will a new parabola at CPoint p intersect with arc i?
+bool Voronoi::intersect(CPoint p, CArc *i, CPoint *res)
 {
-	if (i->GetPoint().x == p.x)
+	if (i->GetPoint().X() == p.X())
 		return false;
 
    double a,b;
 	
    // Get the intersection of i->prev, i.
    if (i->GetPrev()) 
-	   a = intersection(i->GetPrev()->GetPoint(), i->GetPoint(), p.x).y;
+	   a = intersection(i->GetPrev()->GetPoint(), i->GetPoint(), p.X()).Y();
    
    // Get the intersection of i->next, i.
    if (i->GetNext()) 
-	   b = intersection(i->GetPoint(), i->GetNext()->GetPoint(), p.x).y;
+	   b = intersection(i->GetPoint(), i->GetNext()->GetPoint(), p.X()).Y();
 
-   if ((!i->GetPrev() || a <= p.y) && (!i->GetNext() || p.y <= b))
+   if ((!i->GetPrev() || a <= p.Y()) && (!i->GetNext() || p.Y() <= b))
    {
-      res->y = p.y;
+      res->Y( p.Y() );
 
       // Plug it back into the parabola equation.
-	  res->x = (i->GetPoint().x * i->GetPoint().x + (i->GetPoint().y-res->y) * (i->GetPoint().y-res->y) - p.x * p.x)
-		  / (2 * i->GetPoint().x - 2 * p.x);
+	  res->X( (i->GetPoint().X() * i->GetPoint().X() + (i->GetPoint().Y()-res->Y()) * (i->GetPoint().Y()-res->Y()) - p.X() * p.X()) / (2 * i->GetPoint().X() - 2 * p.X()) );
 
       return true;
    }
@@ -262,31 +272,30 @@ bool Voronoi::intersect(point p, CArc *i, point *res)
 }
 
 // Where do two parabolas intersect?
-point Voronoi::intersection(point p0, point p1, double l)
+CPoint Voronoi::intersection(CPoint p0, CPoint p1, double l)
 {
-   point res, p = p0;
+   CPoint res, p = p0;
 
-   if (p0.x == p1.x)
-      res.y = (p0.y + p1.y) / 2;
-   else if (p1.x == l)
-      res.y = p1.y;
-   else if (p0.x == l) {
-      res.y = p0.y;
+   if (p0.X() == p1.X())
+      res.Y( (p0.Y() + p1.Y()) / 2 );
+   else if (p1.X() == l)
+      res.Y( p1.Y() );
+   else if (p0.X() == l) {
+      res.Y( p0.Y() );
       p = p1;
    } else {
       // Use the quadratic formula.
-      double z0 = 2*(p0.x - l);
-      double z1 = 2*(p1.x - l);
+      double z0 = 2*(p0.X() - l);
+      double z1 = 2*(p1.X() - l);
 
       double a = 1/z0 - 1/z1;
-      double b = -2*(p0.y/z0 - p1.y/z1);
-      double c = (p0.y*p0.y + p0.x*p0.x - l*l)/z0
-               - (p1.y*p1.y + p1.x*p1.x - l*l)/z1;
+      double b = -2*(p0.Y()/z0 - p1.Y()/z1);
+      double c = (p0.Y()*p0.Y() + p0.X()*p0.X() - l*l)/z0 - (p1.Y()*p1.Y() + p1.X()*p1.X() - l*l)/z1;
 
-      res.y = ( -b - sqrt(b*b - 4*a*c) ) / (2*a);
+      res.Y( ( -b - sqrt(b*b - 4*a*c) ) / (2*a) );
    }
    // Plug back into one of the parabola equations.
-   res.x = (p.x*p.x + (p.y-res.y)*(p.y-res.y) - l*l)/(2*p.x-2*l);
+   res.X( (p.X()*p.X() + (p.Y()-res.Y())*(p.Y()-res.Y()) - l*l)/(2*p.X()-2*l) );
    return res;
 }
 
@@ -311,8 +320,8 @@ void Voronoi::print_output()
    // Each output segment in four-column format.
    vector<CSegment*>::iterator i;
    for (i = output.begin(); i != output.end(); i++) {
-	   point p0 = (*i)->GetStart();
-	   point p1 = (*i)->GetEnd();
-      cout << p0.x << " " << p0.y << " " << p1.x << " " << p1.y << endl;
+	   CPoint p0 = (*i)->GetStart();
+	   CPoint p1 = (*i)->GetEnd();
+      cout << p0.X() << " " << p0.Y() << " " << p1.X() << " " << p1.Y() << endl;
    }
 }

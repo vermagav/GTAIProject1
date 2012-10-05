@@ -25,6 +25,13 @@
 		5. Move one step towards <FAVORABLE NODE>
 */
 
+
+double Distance(CPoint p1, CPoint p2)
+{
+	return sqrt((p1.X() - p2.X()) * (p1.X() - p2.X()) + (p1.Y() - p2.Y()) * (p1.Y() - p2.Y()));
+}
+
+
 class CHomeObject
 {
 public:
@@ -32,17 +39,30 @@ public:
 	 * Main function for moving the home agent.
 	 * This function calls all other private functions the various steps in our algorithm.
 	 */
+
 	void MoveObject(vector<CPoint> points); // Calls private functions for steps 1-5
+	
+	CPoint getCoord() const
+	{
+		return coord;
+	}
+
+	void SetCoord(CPoint p)
+	{
+		//check point within boundaries
+		coord = p;
+	}
 
 private:
-	std::vector<CPoint> ComputeRelevant(std::vector<CPoint> points); // 1, 2
-	std::vector<CPoint> ComputeNodes(std::vector<CPoint> points); // 3
+	std::priority_queue<CPoint, vector<CPoint>, gt1> ComputeRelevant(std::vector<CPoint> points); // 1, 2
+	std::vector<CPoint> ComputeNodes(priority_queue<CPoint, vector<CPoint>, gt1> points); // 3
 	void MoveToNode(std::vector<CPoint> points); // 4, 5
 	
+	
 	CPoint coord;
+	CPoint goalCoord;
 	std::string strName;
 	Voronoi voronoi;
 };
-
 
 #endif

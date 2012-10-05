@@ -1,17 +1,24 @@
-﻿Build started 04/10/2012 23:55:43.
-     1>Project "C:\Users\grOOvy\Documents\GitHub\GTAIProject1\AIProject\AIProject\AIProject.vcxproj" on node 2 (Build target(s)).
+﻿Build started 05/10/2012 14:18:11.
+     1>Project "C:\Users\grOOvy\Documents\GitHub\GTAIProject1\AIProject\AIProject\AIProject.vcxproj" on node 2 (Rebuild target(s)).
      1>ClCompile:
-         D:\Applications\Microsoft Visual Studio 11.0\VC\bin\CL.exe /c /ZI /nologo /W3 /WX- /Od /Oy- /D WIN32 /D _DEBUG /D _CONSOLE /D _UNICODE /D UNICODE /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Debug\\" /Fd"Debug\vc110.pdb" /Gd /TP /analyze- /errorReport:prompt main.cpp
+         D:\Applications\Microsoft Visual Studio 11.0\VC\bin\CL.exe /c /ZI /nologo /W3 /WX- /Od /Oy- /D WIN32 /D _DEBUG /D _CONSOLE /D _UNICODE /D UNICODE /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Debug\\" /Fd"Debug\vc110.pdb" /Gd /TP /analyze- /errorReport:prompt CAdversary.cpp CHomeObject.cpp main.cpp Voronoi.cpp
+         Voronoi.cpp
          main.cpp
+         CHomeObject.cpp
+         CAdversary.cpp
+     1>c:\users\groovy\documents\github\gtaiproject1\aiproject\aiproject\cadversary.cpp(8): warning C4244: 'argument' : conversion from 'time_t' to 'unsigned int', possible loss of data
+         Generating Code...
        Link:
          D:\Applications\Microsoft Visual Studio 11.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"C:\Users\grOOvy\Documents\GitHub\GTAIProject1\AIProject\Debug\AIProject.exe" /INCREMENTAL /NOLOGO kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"C:\Users\grOOvy\Documents\GitHub\GTAIProject1\AIProject\Debug\AIProject.pdb" /SUBSYSTEM:CONSOLE /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"C:\Users\grOOvy\Documents\GitHub\GTAIProject1\AIProject\Debug\AIProject.lib" /MACHINE:X86 Debug\CAdversary.obj
          Debug\CHomeObject.obj
          Debug\main.obj
          Debug\Voronoi.obj
-     1>CHomeObject.obj : error LNK2019: unresolved external symbol "public: class std::vector<class CPoint,class std::allocator<class CPoint> > __thiscall Voronoi::ComputeVoronoi(class std::vector<class CPoint,class std::allocator<class CPoint> >)" (?ComputeVoronoi@Voronoi@@QAE?AV?$vector@VCPoint@@V?$allocator@VCPoint@@@std@@@std@@V23@@Z) referenced in function "private: class std::vector<class CPoint,class std::allocator<class CPoint> > __thiscall CHomeObject::ComputeNodes(class std::vector<class CPoint,class std::allocator<class CPoint> >)" (?ComputeNodes@CHomeObject@@AAE?AV?$vector@VCPoint@@V?$allocator@VCPoint@@@std@@@std@@V23@@Z)
-     1>C:\Users\grOOvy\Documents\GitHub\GTAIProject1\AIProject\Debug\AIProject.exe : fatal error LNK1120: 1 unresolved externals
-     1>Done Building Project "C:\Users\grOOvy\Documents\GitHub\GTAIProject1\AIProject\AIProject\AIProject.vcxproj" (Build target(s)) -- FAILED.
+     1>main.obj : error LNK2005: "double __cdecl Distance(class CPoint,class CPoint)" (?Distance@@YANVCPoint@@0@Z) already defined in CHomeObject.obj
+     1>main.obj : error LNK2005: "class std::vector<class CSegment *,class std::allocator<class CSegment *> > output" (?output@@3V?$vector@PAVCSegment@@V?$allocator@PAVCSegment@@@std@@@std@@A) already defined in CHomeObject.obj
+     1>Voronoi.obj : error LNK2005: "class std::vector<class CSegment *,class std::allocator<class CSegment *> > output" (?output@@3V?$vector@PAVCSegment@@V?$allocator@PAVCSegment@@@std@@@std@@A) already defined in CHomeObject.obj
+     1>C:\Users\grOOvy\Documents\GitHub\GTAIProject1\AIProject\Debug\AIProject.exe : fatal error LNK1169: one or more multiply defined symbols found
+     1>Done Building Project "C:\Users\grOOvy\Documents\GitHub\GTAIProject1\AIProject\AIProject\AIProject.vcxproj" (Rebuild target(s)) -- FAILED.
 
 Build FAILED.
 
-Time Elapsed 00:00:00.61
+Time Elapsed 00:00:01.59

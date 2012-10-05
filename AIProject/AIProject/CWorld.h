@@ -2,13 +2,17 @@
 #define CWORLD
 
 //CWorld.h
-#include"CAdversary.h"
-#include"CHomeObject.h"
+#include "CAdversary.h"
+#include "CHomeObject.h"
+
 
 class CWorld
 {
 
 public:
+
+	
+	
 
 private:
 	// Our home agent
