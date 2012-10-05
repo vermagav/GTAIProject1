@@ -28,4 +28,16 @@ enum DifficultyMode
 	NUM_OF_MODES
 };
 
+/* Algorithm Related Config */
+
+	// Radius Computation Buffer
+	const int RADIUS_BUFFER = 10;
+	// Node Heuristic Weightage: Distance from <Home Agent> to <Path Node>
+	const float NODE_WEIGHTAGE_D1 = 0.3;
+	// Node Heuristic Weightage: Distance from <Path Node> to <Goal>
+	const float NODE_WEIGHTAGE_D2 = 0.7;
+
+
+
+
 #endif

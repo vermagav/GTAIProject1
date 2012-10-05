@@ -11,13 +11,18 @@
 /*
 	Main algorithm:
 		1. Compute Radius
-		2. Calculate which objects fall within radius
-		3. Calculate nodes using Voronoi diagram on these objects
-		4. Assign weightage to each node based on:
-			a. Distance from goal
-			b. Distance from closest objects
-			c. Clutter-density factor
-		5. Move one step towards favorable node
+			a. Compute distance between home agent and FIRST TWO adversaries in priority queue
+			b. Radius = distance to second farthest agent + radius buffer
+				Radius = Dist(HomeAgent, 2nd Adversary) + RADIUS_BUFFER
+		2. Calculate which objects fall within new final radius = RELEVANT OBJECTS
+		3. Calculate <PATH NODES> using Voronoi diagram on these RELEVANT OBJECTS
+		4. Assign weightage to each <PATH NODE> based on:
+			a. Distance from goal (NODE_WEIGHTAGE_D1)
+			b. Distance from closest objects (NODE_WEIGHTAGE_D2)
+			// c. Clutter-density factor
+				Weightage = (NODE_WEIGHTAGE_D1 * Distance to Home Agent) + (NODE_WEIGHTAGE_D2 * Distance to Goal)
+				Take the LOWEST weightage and use that as the <FAVORABLE NODE> to move to
+		5. Move one step towards <FAVORABLE NODE>
 */
 
 class CHomeObject
