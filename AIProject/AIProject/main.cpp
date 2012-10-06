@@ -7,5 +7,9 @@
 
 int main()
 {
-	return 1;
+	//Ceate the World and Run It
+	CWorld world;
+	world.run();
+
+	return 0;
 }

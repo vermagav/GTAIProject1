@@ -12,6 +12,14 @@ const int STEP_SIZE_ADVERSARY = 1;
 // Start position of home agent
 const int STARTX_HOMEAGENT = 1;
 const int STARTY_HOMEAGENT = 1;
+const int STARTX_GOALCOORD = 100;
+const int STARTY_GOALCOORD = 100;
+
+//BOUNDARY CONSTANTS FOR THE LEVEL
+const int MIN_X = 0;
+const int MAX_X = 100;
+const int MIN_Y = 0;
+const int MAX_Y = 100;
 
 // Number of enemies
 const int NUM_ENEMIES = 10;
@@ -36,8 +44,5 @@ enum DifficultyMode
 	const double NODE_WEIGHTAGE_D1 = 0.3;
 	// Node Heuristic Weightage: Distance from <Path Node> to <Goal>
 	const double NODE_WEIGHTAGE_D2 = 0.7;
-
-
-
 
 #endif

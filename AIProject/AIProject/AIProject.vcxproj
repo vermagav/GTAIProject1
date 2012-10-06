@@ -80,14 +80,15 @@
     <ClInclude Include="CHomeObject.h" />
     <ClInclude Include="CWorld.h" />
     <ClInclude Include="CPoint.h" />
-    <ClInclude Include="Voronoi.h" />
+    <ClInclude Include="VoronoiDiagramGenerator.h" />
     <ClInclude Include="_config.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="CAdversary.cpp" />
     <ClCompile Include="CHomeObject.cpp" />
+    <ClCompile Include="CWorld.cpp" />
     <ClCompile Include="main.cpp" />
-    <ClCompile Include="Voronoi.cpp" />
+    <ClCompile Include="VoronoiDiagramGenerator.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

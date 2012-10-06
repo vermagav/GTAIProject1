@@ -5,37 +5,30 @@
 
 void CAdversary::MoveRandom(DifficultyMode m)
 {
-	srand(time(NULL));
+	srand(time(0));
 	int move = rand() % 4;
 	/// TODO:Wall cases
 	switch(m)
 	{
-		case RANDOM_EASY:
+		//rand()%3 -1 generates either -1, 0, 1...
+		case RANDOM_EASY: coord.Move(rand() % 3 - 1, rand() % 3 - 1);
+			break;
+		
+		//All players will home in on the robot - Use Only on Some
+		case RANDOM_NORMAL:
 			{
-				switch(move)
-				{
-				case 0: coord.Right();
-						break;
+				float x = homeCoord.X() - coord.X();
+				float y = homeCoord.Y() - coord.Y();
+			
+				float mag = sqrt((x * x + y * y));
+				x /= mag;
+				y /= mag;
 
-				case 1: coord.Left();
-						break;
+				coord.Move((int)x, (int)y);
+			}
+			break;
 
-				case 2: coord.Up();
-						break;
-
-				case 3: coord.Down();
-						break;
-				}
-				break;
-
-			case RANDOM_NORMAL:
-				break;
-
-			case RANDOM_INTELLIGENT:
-				break; 
-	 
-		}
+		case RANDOM_INTELLIGENT:
+			break; 	 		
 	}
-
 }
-

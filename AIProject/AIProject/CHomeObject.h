@@ -2,12 +2,11 @@
 #define CHOME_OBJECT
 
 //CHomeObject v1.0
-#include<string>
-#include<queue>
-#include<vector>
-#include "Voronoi.h"
 #include "_config.h"
-
+#include "CPoint.h"
+#include "VoronoiDiagramGenerator.h"
+#include<string>
+#include<vector>
 /*
 	Main algorithm:
 		1. Compute Radius
@@ -26,23 +25,20 @@
 */
 
 
-double Distance(CPoint p1, CPoint p2)
-{
-	return sqrt((p1.X() - p2.X()) * (p1.X() - p2.X()) + (p1.Y() - p2.Y()) * (p1.Y() - p2.Y()));
-}
-
 
 class CHomeObject
 {
 public:
+	//COnstructor...//vdg???
+	CHomeObject(int x, int y): coord(CPoint(x, y)), strName("Robot"), iStepSize(STEP_SIZE_HOMEAGENT) {}  
+
 	/*
 	 * Main function for moving the home agent.
 	 * This function calls all other private functions the various steps in our algorithm.
 	 */
-
-	void MoveObject(vector<CPoint> points); // Calls private functions for steps 1-5
+	void MoveObject(std::vector<CPoint> points); // Calls private functions for steps 1-5
 	
-	CPoint getCoord() const
+	CPoint GetCoord() const
 	{
 		return coord;
 	}
@@ -54,15 +50,15 @@ public:
 	}
 
 private:
-	std::priority_queue<CPoint, vector<CPoint>, gt1> ComputeRelevant(std::vector<CPoint> points); // 1, 2
-	std::vector<CPoint> ComputeNodes(priority_queue<CPoint, vector<CPoint>, gt1> points); // 3
+	std::vector<CPoint> ComputeRelevant(std::vector<CPoint> points); // 1, 2
+	std::vector<CPoint> ComputeNodes(std::vector<CPoint> relNodes); // 3
 	void MoveToNode(std::vector<CPoint> points); // 4, 5
 	
 	
 	CPoint coord;
-	CPoint goalCoord;
 	std::string strName;
-	Voronoi voronoi;
+	int iStepSize;
+	VoronoiDiagramGenerator vdg;
 };
 
 #endif
