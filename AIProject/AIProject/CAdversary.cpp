@@ -1,17 +1,20 @@
 #include "CAdversary.h"
 #include <stdlib.h>
 #include <time.h>
+#include <iostream>
+
+// temp
+using namespace std;
+
 
 
 void CAdversary::MoveRandom(DifficultyMode m)
 {
-	srand(time(0));
-	int move = rand() % 4;
-	/// TODO:Wall cases
 	switch(m)
 	{
 		// rand()%3 -1 generates either -1, 0, 1...
 		case RANDOM_EASY: coord.Move(rand() % 3 - 1, rand() % 3 - 1);
+			// /*DEBUG:*/std::cout<<endl<<coord.X()<<","<<coord.Y()<<endl;
 			break;
 		
 		// All players will home in on the robot - Use Only on Some

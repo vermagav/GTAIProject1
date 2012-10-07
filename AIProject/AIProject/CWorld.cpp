@@ -31,13 +31,20 @@ void CWorld::InitEnemies()
 
 void CWorld::run()
 {
-	InitState();
-	DrawState();
+	int count = 0;
 
+	while(count != 10)
+	{
+		FillBuffer();		
+		UpdateState();
+		DrawState();
+		++count;
+		getch();
+	}
 	return;
 }
 
-void CWorld::InitState()
+void CWorld::FillBuffer()
 {
 	// Initialise the Entire Level to '.'
 	//Y is outer Loop...X is Inner
@@ -58,7 +65,18 @@ void CWorld::InitState()
 
 void CWorld::UpdateState()
 {
-	//
+	// Get All the Coords of the Enemies
+	vector<CPoint> points(enemies.size());
+
+	for(vector<CAdversary>::iterator i = enemies.begin(); i != enemies.end(); i++)
+		points.push_back(i->getCoord());
+	
+	// Compute Voronoi for Robot and Move the Robot Step Size in Its Direction
+	//robot.MoveObject(points);
+
+	//Call Random Motion on the Robots
+	for(vector<CAdversary>::iterator i = enemies.begin(); i != enemies.end(); i++)
+		i->MoveRandom(RANDOM_EASY);
 }
 
 
@@ -71,7 +89,7 @@ void CWorld::DrawState()
 	for(int i = LEVEL_MIN_Y; i <= LEVEL_MAX_Y; i++)
 	{
 		for(int j = LEVEL_MIN_X; j <= LEVEL_MAX_X; j++)
-			cout<< screenBuffer[i][j] ;
+			cout<<screenBuffer[i][j];
 		cout<<endl;
 	}
 }

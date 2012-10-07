@@ -6,8 +6,8 @@
 #define _CONFIG_H
 
 // Step size for home agent and adversary
-const int STEP_SIZE_HOMEAGENT = 5;
-const int STEP_SIZE_ADVERSARY = 1;
+const int STEP_SIZE_HOMEAGENT = 15;
+const int STEP_SIZE_ADVERSARY = 5;
 
 // Start position of home agent
 const int STARTX_HOMEAGENT = 0;

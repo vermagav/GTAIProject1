@@ -35,7 +35,7 @@ private:
 	void InitEnemies();
 
 	//Required Functions for Game Loop
-	void InitState(void);
+	void FillBuffer(void);
 	void UpdateState(void);
 	void DrawState(void);
 
@@ -45,7 +45,7 @@ private:
 	//double endTime;
 
 	// Representation Variables
-	char screenBuffer[LEVEL_MAX_Y][LEVEL_MAX_X];
+	char screenBuffer[LEVEL_MAX_Y + 1][LEVEL_MAX_X +1];
 };
 
 #endif

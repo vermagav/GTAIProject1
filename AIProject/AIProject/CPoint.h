@@ -25,8 +25,8 @@ public:
 	// Move function for moving the adversary in a particular direction
 	void inline Move(int x1, int y1)
 	{
-		iX += x1;
-		iY += y1;
+		iX += x1 * STEP_SIZE_ADVERSARY;
+		iY += y1 * STEP_SIZE_ADVERSARY;
 		
 		if(iX < LEVEL_MIN_X)
 			iX = LEVEL_MIN_X;

@@ -38,7 +38,7 @@ void CHomeObject::MoveObject(vector<CPoint> points)
 
 	// Calulate the corresponding distance to coord for every point, make a pair and store it
 	for(vector<CPoint>::size_type i = 0; i != points.size(); i++)
-		distance[i] = make_pair(points[i], CPointDistance(points[i], coord));
+		distance.push_back(make_pair(points[i], CPointDistance(points[i], coord)));
 	
 	// Sort according to distance from coord
 	sort(distance.begin(), distance.end(), Compare);
@@ -48,7 +48,7 @@ void CHomeObject::MoveObject(vector<CPoint> points)
 
 	// Get sorted points from pair structure
 	for(vector<pair<CPoint, double> >::size_type i = 0; i != distance.size(); i++)
-		points[i] = distance[i].first;
+		points.push_back(distance[i].first);
 
 	// After sorting call, compute relevant nodes and calculate Path Nodes(Vornoi Nodes) using this relevant nodes
 	// Select the Min weight Node and move to it
@@ -131,9 +131,9 @@ void CHomeObject::MoveToNode(vector<CPoint> pathNodes)
 		// Calculate weights for all the nodes
 		// Weightage = (NODE_WEIGHTAGE_D1 * Distance to Home Agent) + (NODE_WEIGHTAGE_D2 * Distance to Goal)
 		for(vector<CPoint>::size_type i = 0; i != pathNodes.size(); i++)
-			weights[i] = (NODE_WEIGHTAGE_D1 *  CPointDistance(pathNodes[i], coord)) 
-					   + (NODE_WEIGHTAGE_D2 * CPointDistance(pathNodes[i], CPoint(STARTX_GOAL, STARTY_GOAL)));
-
+			weights.push_back(((NODE_WEIGHTAGE_D1 *  CPointDistance(pathNodes[i], coord)) 
+				   + (NODE_WEIGHTAGE_D2 * CPointDistance(pathNodes[i], CPoint(STARTX_GOAL, STARTY_GOAL)))));
+		
 		// Mind the index of smallest weight
 		// Assume first element as Minimum
 		double min = weights[0];
@@ -147,7 +147,7 @@ void CHomeObject::MoveToNode(vector<CPoint> pathNodes)
 			}
 			
 		// Move the Robot to actual Coord in pathNodes indexed by select_index
-	
+		
 	}
 
 	//No PathNodes: What To DO???

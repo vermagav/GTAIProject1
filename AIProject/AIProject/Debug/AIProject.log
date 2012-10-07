@@ -1,9 +1,18 @@
-﻿Build started 07/10/2012 00:07:03.
-     1>Project "C:\Users\grOOvy\Documents\GitHub\GTAIProject1\AIProject\AIProject\AIProject.vcxproj" on node 2 (Build target(s)).
+﻿Build started 07/10/2012 12:43:44.
+     1>Project "C:\Users\grOOvy\Documents\GitHub\GTAIProject1\AIProject\AIProject\AIProject.vcxproj" on node 2 (Rebuild target(s)).
      1>ClCompile:
-         D:\Applications\Microsoft Visual Studio 11.0\VC\bin\CL.exe /c /ZI /nologo /W3 /WX- /Od /Oy- /D WIN32 /D _DEBUG /D _CONSOLE /D _UNICODE /D UNICODE /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Debug\\" /Fd"Debug\vc110.pdb" /Gd /TP /analyze- /errorReport:prompt CWorld.cpp
+         D:\Applications\Microsoft Visual Studio 11.0\VC\bin\CL.exe /c /ZI /nologo /W3 /WX- /Od /Oy- /D WIN32 /D _DEBUG /D _CONSOLE /D _UNICODE /D UNICODE /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Debug\\" /Fd"Debug\vc110.pdb" /Gd /TP /analyze- /errorReport:prompt CAdversary.cpp CHomeObject.cpp CWorld.cpp main.cpp VoronoiDiagramGenerator.cpp
+         VoronoiDiagramGenerator.cpp
+         main.cpp
+     1>c:\users\groovy\documents\github\gtaiproject1\aiproject\aiproject\main.cpp(16): warning C4996: 'getch': The POSIX name for this item is deprecated. Instead, use the ISO C++ conformant name: _getch. See online help for details.
+                 d:\applications\microsoft visual studio 11.0\vc\include\conio.h(131) : see declaration of 'getch'
          CWorld.cpp
      1>c:\users\groovy\documents\github\gtaiproject1\aiproject\aiproject\cworld.cpp(15): warning C4244: 'argument' : conversion from 'time_t' to 'unsigned int', possible loss of data
+     1>c:\users\groovy\documents\github\gtaiproject1\aiproject\aiproject\cworld.cpp(42): warning C4996: 'getch': The POSIX name for this item is deprecated. Instead, use the ISO C++ conformant name: _getch. See online help for details.
+                 d:\applications\microsoft visual studio 11.0\vc\include\conio.h(131) : see declaration of 'getch'
+         CHomeObject.cpp
+         CAdversary.cpp
+         Generating Code...
        Link:
          D:\Applications\Microsoft Visual Studio 11.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"C:\Users\grOOvy\Documents\GitHub\GTAIProject1\AIProject\Debug\AIProject.exe" /INCREMENTAL /NOLOGO kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"C:\Users\grOOvy\Documents\GitHub\GTAIProject1\AIProject\Debug\AIProject.pdb" /SUBSYSTEM:CONSOLE /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"C:\Users\grOOvy\Documents\GitHub\GTAIProject1\AIProject\Debug\AIProject.lib" /MACHINE:X86 Debug\CAdversary.obj
          Debug\CHomeObject.obj
@@ -11,8 +20,8 @@
          Debug\main.obj
          Debug\VoronoiDiagramGenerator.obj
          AIProject.vcxproj -> C:\Users\grOOvy\Documents\GitHub\GTAIProject1\AIProject\Debug\AIProject.exe
-     1>Done Building Project "C:\Users\grOOvy\Documents\GitHub\GTAIProject1\AIProject\AIProject\AIProject.vcxproj" (Build target(s)).
+     1>Done Building Project "C:\Users\grOOvy\Documents\GitHub\GTAIProject1\AIProject\AIProject\AIProject.vcxproj" (Rebuild target(s)).
 
 Build succeeded.
 
-Time Elapsed 00:00:00.69
+Time Elapsed 00:00:02.04
