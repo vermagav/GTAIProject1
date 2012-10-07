@@ -31,6 +31,9 @@ private:
 	//The coordinate of the Robot's Goal
 	CPoint goalCoord;
 	
+	//Voronoi Points
+	std::vector<CPoint> vornoiPoints;
+
 	//intialise the Cadversary Vector
 	void InitEnemies();
 

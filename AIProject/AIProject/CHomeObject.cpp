@@ -31,10 +31,10 @@ bool operator < (CPoint a, CPoint b)
 }
 
 // Takes the vector of all adversary points' locations
-void CHomeObject::MoveObject(vector<CPoint> points)
+vector<CPoint> CHomeObject::MoveObject(vector<CPoint> points)
 {
 	// Data strucutre for our convenience: size same as points
-	vector<pair<CPoint, double> > distance(points.size());
+	vector<pair<CPoint, double> > distance;
 
 	// Calulate the corresponding distance to coord for every point, make a pair and store it
 	for(vector<CPoint>::size_type i = 0; i != points.size(); i++)
@@ -52,7 +52,7 @@ void CHomeObject::MoveObject(vector<CPoint> points)
 
 	// After sorting call, compute relevant nodes and calculate Path Nodes(Vornoi Nodes) using this relevant nodes
 	// Select the Min weight Node and move to it
-	MoveToNode(ComputeNodes(ComputeRelevant(points)));	
+	return MoveToNode(ComputeNodes(ComputeRelevant(points)));	
 }
 
 // Compute relevant set of adversaries
@@ -120,13 +120,13 @@ vector<CPoint> CHomeObject::ComputeNodes(vector<CPoint> relPoints)
 	return pathNodes;
 }
 
-void CHomeObject::MoveToNode(vector<CPoint> pathNodes)
+vector<CPoint> CHomeObject::MoveToNode(vector<CPoint> pathNodes)
 {
 	
 	if(!pathNodes.empty())
 	{
 		// Better solution: club Cpoint and Weights into one data strucutre
-		vector<double> weights(pathNodes.size());
+		vector<double> weights;
 	
 		// Calculate weights for all the nodes
 		// Weightage = (NODE_WEIGHTAGE_D1 * Distance to Home Agent) + (NODE_WEIGHTAGE_D2 * Distance to Goal)
@@ -147,10 +147,43 @@ void CHomeObject::MoveToNode(vector<CPoint> pathNodes)
 			}
 			
 		// Move the Robot to actual Coord in pathNodes indexed by select_index
-		
+		CPoint targetNode(pathNodes[select_index].X(), pathNodes[select_index].Y());
+		for(int i=0; i != STEP_SIZE_HOMEAGENT; i++)
+		{
+			
+			if( pathNodes[select_index].X() > coord.X() )
+			{
+				if( pathNodes[select_index].Y() > coord.Y() )
+				{
+					coord.Down();
+					coord.Right();
+				}
+				else
+				{
+					coord.Up();
+					coord.Left();
+				}
+			}
+			if( pathNodes[select_index].X() < coord.X() )
+			{
+				if( pathNodes[select_index].Y() > coord.Y() )
+				{
+					coord.Down();
+					coord.Left();
+				}
+				else
+				{
+					coord.Up();
+					coord.Right();
+				}
+			}
+			
+		}
+
 	}
 
 	//No PathNodes: What To DO???
 	//Also Near the Goal? What to do??
 	//Add StartNode and GoalNode in Voronoi Calulation??
+	return pathNodes;
 }

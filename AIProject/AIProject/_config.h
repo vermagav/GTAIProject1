@@ -6,18 +6,18 @@
 #define _CONFIG_H
 
 // Step size for home agent and adversary
-const int STEP_SIZE_HOMEAGENT = 15;
-const int STEP_SIZE_ADVERSARY = 5;
+const int STEP_SIZE_HOMEAGENT = 5;
+const int STEP_SIZE_ADVERSARY = 1;
 
 // Start position of home agent
 const int STARTX_HOMEAGENT = 0;
 const int STARTY_HOMEAGENT = 0;
-const int STARTX_GOAL = 180;
-const int STARTY_GOAL = 50;
+const int STARTX_GOAL = 140;
+const int STARTY_GOAL = 45;
 
 // Boundary constants for the level
 const int LEVEL_MIN_X = 0;
-const int LEVEL_MAX_X = 200;
+const int LEVEL_MAX_X = 140;
 const int LEVEL_MIN_Y = 0;
 const int LEVEL_MAX_Y = 50;
 
@@ -39,7 +39,7 @@ enum DifficultyMode
 /* Algorithm Related Config */
 
 	// Radius Computation Buffer
-	const int RADIUS_BUFFER = 10;
+	const int RADIUS_BUFFER = 100;
 	// Node Heuristic Weightage: Distance from <Home Agent> to <Path Node>
 	const double NODE_WEIGHTAGE_D1 = 0.3;
 	// Node Heuristic Weightage: Distance from <Path Node> to <Goal>

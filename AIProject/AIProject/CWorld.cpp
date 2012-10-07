@@ -33,7 +33,7 @@ void CWorld::run()
 {
 	int count = 0;
 
-	while(count != 10)
+	while(count != 30)
 	{
 		FillBuffer();		
 		UpdateState();
@@ -61,18 +61,22 @@ void CWorld::FillBuffer()
 
 	// Draw Goal Node on ScreenBuffer
 	screenBuffer[goalCoord.Y()][goalCoord.X()] = 'G';
+
+	//set the voronoi Points
+	for(vector<CPoint>::size_type i = 0; i != vornoiPoints.size(); i++)
+		screenBuffer[vornoiPoints[i].Y()][vornoiPoints[i].X()] = 'O';
 }
 
 void CWorld::UpdateState()
 {
 	// Get All the Coords of the Enemies
-	vector<CPoint> points(enemies.size());
+	vector<CPoint> points;
 
 	for(vector<CAdversary>::iterator i = enemies.begin(); i != enemies.end(); i++)
 		points.push_back(i->getCoord());
 	
 	// Compute Voronoi for Robot and Move the Robot Step Size in Its Direction
-	//robot.MoveObject(points);
+	vornoiPoints = robot.MoveObject(points);
 
 	//Call Random Motion on the Robots
 	for(vector<CAdversary>::iterator i = enemies.begin(); i != enemies.end(); i++)
