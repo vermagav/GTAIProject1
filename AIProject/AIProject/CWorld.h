@@ -35,15 +35,30 @@ private:
 	void InitEnemies();
 
 	//Required Functions for Game Loop
-	void ClearScreen();
-	void Update();
-	void display();
-	void timerUpdate();
-	
+	void InitState(void);
+	void UpdateState(void);
+	void DrawState(void);
+
 	//Used to control FrameCOunt along with GAMESPEED
-	double frameCount;
-	double startTime;
-	double endTime;
+	//double frameCount;
+	//double startTime;
+	//double endTime;
+
+	// Representation Variables
+	char screenBuffer[LEVEL_MAX_Y][LEVEL_MAX_X];
 };
 
 #endif
+
+/*
+	Notes:
+		char* screen buffer (use level max X and level max Y), set each value to "."
+		Init(): set HomeAgent position to "#" on screen buffer, cycle through each adversary and set position to "X"
+		Write Draw function: clear screen, output full screen buffer
+		Call init and draw in main function
+
+		Write Update function
+		Call voronoi functions
+		Set voronoi points as "o" in screen buffer
+		Loop to run the Update and Draw function 10 times
+*/

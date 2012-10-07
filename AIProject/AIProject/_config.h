@@ -10,16 +10,16 @@ const int STEP_SIZE_HOMEAGENT = 5;
 const int STEP_SIZE_ADVERSARY = 1;
 
 // Start position of home agent
-const int STARTX_HOMEAGENT = 1;
-const int STARTY_HOMEAGENT = 1;
-const int STARTX_GOAL = 100;
-const int STARTY_GOAL = 100;
+const int STARTX_HOMEAGENT = 0;
+const int STARTY_HOMEAGENT = 0;
+const int STARTX_GOAL = 180;
+const int STARTY_GOAL = 50;
 
 // Boundary constants for the level
 const int LEVEL_MIN_X = 0;
-const int LEVEL_MAX_X = 100;
+const int LEVEL_MAX_X = 200;
 const int LEVEL_MIN_Y = 0;
-const int LEVEL_MAX_Y = 100;
+const int LEVEL_MAX_Y = 50;
 
 // Number of enemies
 const int NUM_ENEMIES = 10;
