@@ -13,8 +13,8 @@ void CWorld::InitEnemies()
 		//Generate Random Numbers to store into x, y
 		//Also add these 10, 20 to config as some constant
 		
-		x = 10 + rand() % (MAX_X - 20);
-		y = 10 + rand() % (MAX_Y - 20);
+		x = 10 + rand() % (LEVEL_MAX_X - 20);
+		y = 10 + rand() % (LEVEL_MAX_Y - 20);
 
 		//Make sure x, y are within walls and not ontop of another agent
 

@@ -29,8 +29,8 @@
 class CHomeObject
 {
 public:
-	//COnstructor...//vdg???
-	CHomeObject(int x, int y): coord(CPoint(x, y)), strName("Robot"), iStepSize(STEP_SIZE_HOMEAGENT) {}  
+	// Constructor
+	CHomeObject(int x, int y): coord(CPoint(x, y)), strName("Robo-X"), iStepSize(STEP_SIZE_HOMEAGENT) {}  
 
 	/*
 	 * Main function for moving the home agent.
@@ -45,7 +45,7 @@ public:
 
 	void SetCoord(CPoint p)
 	{
-		//check point within boundaries
+		//  point within boundaries
 		coord = p;
 	}
 
@@ -53,7 +53,6 @@ private:
 	std::vector<CPoint> ComputeRelevant(std::vector<CPoint> points); // 1, 2
 	std::vector<CPoint> ComputeNodes(std::vector<CPoint> relNodes); // 3
 	void MoveToNode(std::vector<CPoint> points); // 4, 5
-	
 	
 	CPoint coord;
 	std::string strName;

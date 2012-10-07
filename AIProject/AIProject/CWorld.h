@@ -8,8 +8,8 @@ class CWorld
 {
 
 public:
-	//Constructor: Need for Init() function???
-	CWorld(): robot(CHomeObject(STARTX_HOMEAGENT, STARTY_HOMEAGENT)), goalCoord(CPoint(STARTX_GOALCOORD, STARTY_GOALCOORD))
+	// Constructor: Need for Init() function???
+	CWorld(): robot(CHomeObject(STARTX_HOMEAGENT, STARTY_HOMEAGENT)), goalCoord(CPoint(STARTX_GOAL, STARTY_GOAL))
 	{
 		//Initialise vector of adversaries
 		InitEnemies();
