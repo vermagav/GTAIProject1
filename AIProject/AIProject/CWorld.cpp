@@ -33,10 +33,10 @@ void CWorld::run()
 {
 	int count = 0;
 
-	while(count != 30)
+	while(count != 50)
 	{
 		FillBuffer();		
-		UpdateState();
+		UpdateState(); 
 		DrawState();
 		++count;
 		getch();
@@ -50,7 +50,7 @@ void CWorld::FillBuffer()
 	//Y is outer Loop...X is Inner
 	for(int i = LEVEL_MIN_Y; i <= LEVEL_MAX_Y; i++)
 		for(int j = LEVEL_MIN_X; j <= LEVEL_MAX_X; j++)
-			screenBuffer[i][j] = '.';
+			screenBuffer[i][j] = ' ';
 
 	// Set HomeAgent's Coordinate to # on screenBuffer
 	screenBuffer[robot.GetCoord().Y()][robot.GetCoord().X()] = '#';
@@ -96,4 +96,8 @@ void CWorld::DrawState()
 			cout<<screenBuffer[i][j];
 		cout<<endl;
 	}
+
+	cout<<"Home Object Coord: "<<robot.GetCoord().X()<<", "<<robot.GetCoord().Y()<<endl;
+	cout<<"Target Node: "<<robot.GetTargetNode().X()<<", "<<robot.GetTargetNode().Y()<<endl;
 }
+ 

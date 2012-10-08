@@ -22,7 +22,7 @@ const int LEVEL_MIN_Y = 0;
 const int LEVEL_MAX_Y = 50;
 
 // Number of enemies
-const int NUM_ENEMIES = 10;
+const int NUM_ENEMIES = 15;
 
 // Number of moves per second
 const int NUM_MOVES_PER_SEC = 1;
@@ -39,7 +39,7 @@ enum DifficultyMode
 /* Algorithm Related Config */
 
 	// Radius Computation Buffer
-	const int RADIUS_BUFFER = 100;
+	const int RADIUS_BUFFER = 20;
 	// Node Heuristic Weightage: Distance from <Home Agent> to <Path Node>
 	const double NODE_WEIGHTAGE_D1 = 0.3;
 	// Node Heuristic Weightage: Distance from <Path Node> to <Goal>

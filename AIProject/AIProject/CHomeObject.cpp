@@ -2,12 +2,18 @@
 #include <algorithm>
 #include <utility>
 #include <map>
+#include <iostream>
+#include <conio.h>
 
 using std::string;
 using std::vector;
 using std::pair;
 using std::map;
 using std::make_pair;
+using std::back_inserter;
+using std::copy;
+using std::cout;
+using std::endl;
 
 
 // Utility function: distance, compare and operator <
@@ -33,6 +39,16 @@ bool operator < (CPoint a, CPoint b)
 // Takes the vector of all adversary points' locations
 vector<CPoint> CHomeObject::MoveObject(vector<CPoint> points)
 {
+	// Remove those Elements from the vector that have been passed
+	vector<CPoint>::size_type i = 0; 
+	while(i != points.size())
+	{
+		if(points[i].X() <= coord.X() && points[i].Y() <= coord.Y())
+			points.erase(points.begin() + i);
+		else
+			i++;
+	}
+
 	// Data strucutre for our convenience: size same as points
 	vector<pair<CPoint, double> > distance;
 
@@ -62,7 +78,7 @@ vector<CPoint> CHomeObject::ComputeRelevant(vector<CPoint> points)
 	vector<CPoint> releventNodes;
 
 	// Radius is given by distance of second farthest element + buffer
-	double radius = CPointDistance(points[1], coord) + RADIUS_BUFFER;
+	double radius = CPointDistance(points[2], coord) + RADIUS_BUFFER;
 
 	// Add all points to relevant nodes vector whose distance to coord is less than Radius or until we reach the end (all points within radius)
 	for(vector<CPoint>::const_iterator i = points.begin(); i != points.end() && (CPointDistance((*i), coord)) <= radius; i++)
@@ -73,7 +89,49 @@ vector<CPoint> CHomeObject::ComputeRelevant(vector<CPoint> points)
 
 vector<CPoint> CHomeObject::ComputeNodes(vector<CPoint> relPoints)
 {
+	vector<CPoint> boundaryNodes; 
+
 	// Get the number of relevant Nodes and Store it in size
+	for(vector<CPoint>::size_type i = 0; i != relPoints.size(); i++)
+	{
+		if(relPoints[i].X() < LEVEL_MAX_X/2 && relPoints[i].Y() < LEVEL_MAX_Y/2)
+		{
+			boundaryNodes.push_back(CPoint(relPoints[i].X(), 0));
+			boundaryNodes.push_back(CPoint(0, relPoints[i].Y()));
+		}
+		else
+			if(relPoints[i].X() >= LEVEL_MAX_X/2 && relPoints[i].Y() < LEVEL_MAX_Y/2)
+			{
+				boundaryNodes.push_back(CPoint(relPoints[i].X(), 0));
+				boundaryNodes.push_back(CPoint(LEVEL_MAX_X, relPoints[i].Y()));
+			}
+			else
+				if(relPoints[i].X() < LEVEL_MAX_X/2 && relPoints[i].Y() >= LEVEL_MAX_Y/2)
+				{
+					boundaryNodes.push_back(CPoint(relPoints[i].X(), LEVEL_MAX_Y));
+					boundaryNodes.push_back(CPoint(0, relPoints[i].Y()));
+				}
+				else
+					if(relPoints[i].X() >= LEVEL_MAX_X/2 && relPoints[i].Y() >= LEVEL_MAX_Y/2)
+					{
+						boundaryNodes.push_back(CPoint(relPoints[i].X(),LEVEL_MAX_Y));
+						boundaryNodes.push_back(CPoint(LEVEL_MAX_X, relPoints[i].Y()));
+					}
+	}
+	
+	// Append boundarNodes at the end of RelPoints
+	copy(relPoints.begin(), relPoints.end(), back_inserter(boundaryNodes));
+
+	vector<CPoint>::size_type i = 0; 
+	while(i != relPoints.size())
+	{
+		if(relPoints[i].X() <= coord.X() && relPoints[i].Y() <= coord.Y())
+			relPoints.erase(relPoints.begin() + i);
+		else
+			i++;
+	}
+
+
 	const size_t size = relPoints.size();
 
 	// Create to arrays to hold the X and Y coordinates. Largest size = NUM_ENEMIES
@@ -106,7 +164,7 @@ vector<CPoint> CHomeObject::ComputeNodes(vector<CPoint> relPoints)
 		// If x1, y1 are within the boundary, increment their count
 		if(x1 >= LEVEL_MIN_X && x1 <= LEVEL_MAX_X && y1 >= LEVEL_MIN_Y && y1 <= LEVEL_MAX_Y)
 			++relNodes[CPoint((int)x1, (int)y1)];
-		
+		            
 		// If x2, y2 are within the boundary, increment their count
 		if(x2 >= LEVEL_MIN_X && x2 <= LEVEL_MAX_X && y2>= LEVEL_MIN_Y && y2 <= LEVEL_MAX_Y)
 			++relNodes[CPoint((int)x2, (int)y2)];
@@ -147,7 +205,11 @@ vector<CPoint> CHomeObject::MoveToNode(vector<CPoint> pathNodes)
 			}
 			
 		// Move the Robot to actual Coord in pathNodes indexed by select_index
-		CPoint targetNode(pathNodes[select_index].X(), pathNodes[select_index].Y());
+		targetNode = CPoint(pathNodes[select_index].X(), pathNodes[select_index].Y());
+
+		//Output target Node
+		std::cout<<"Target Node:"<<targetNode.X()<<", "<<targetNode.Y()<<endl;
+
 		for(int i=0; i != STEP_SIZE_HOMEAGENT; i++)
 		{
 			
@@ -161,7 +223,7 @@ vector<CPoint> CHomeObject::MoveToNode(vector<CPoint> pathNodes)
 				else
 				{
 					coord.Up();
-					coord.Left();
+					coord.Right();
 				}
 			}
 			if( pathNodes[select_index].X() < coord.X() )
@@ -174,7 +236,7 @@ vector<CPoint> CHomeObject::MoveToNode(vector<CPoint> pathNodes)
 				else
 				{
 					coord.Up();
-					coord.Right();
+					coord.Left();
 				}
 			}
 			

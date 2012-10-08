@@ -49,6 +49,10 @@ public:
 		coord = p;
 	}
 
+	CPoint GetTargetNode()
+	{
+		return targetNode;
+	}
 private:
 	std::vector<CPoint> ComputeRelevant(std::vector<CPoint> points); // 1, 2
 	std::vector<CPoint> ComputeNodes(std::vector<CPoint> relNodes); // 3
@@ -58,6 +62,7 @@ private:
 	std::string strName;
 	int iStepSize;
 	VoronoiDiagramGenerator vdg;
+	CPoint targetNode;
 };
 
 #endif
