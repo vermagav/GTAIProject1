@@ -3,6 +3,7 @@
 
 //CWorld.h
 #include "CAdversary.h"
+#include <Windows.h>
 
 class CWorld
 {
@@ -28,26 +29,26 @@ private:
 	// The enemies that oppose our home agent
 	std::vector<CAdversary> enemies;
 
-	//The coordinate of the Robot's Goal
+	// The coordinate of the Robot's Goal
 	CPoint goalCoord;
 	
-	//Voronoi Points
+	// Voronoi Points
 	std::vector<CPoint> vornoiPoints;
 
-	//intialise the Cadversary Vector
+	// Intialise the CAdversary Vector
 	void InitEnemies();
 
-	//Required Functions for Game Loop
+	// Required Functions for Game Loop
 	void FillBuffer(void);
 	void UpdateState(void);
-	void DrawState(void);
+	void DrawState(HANDLE);
 
 	//Used to control FrameCOunt along with GAMESPEED
 	//double frameCount;
 	//double startTime;
 	//double endTime;
 
-	// Representation Variables
+	// Screen Representation Variables
 	char screenBuffer[LEVEL_MAX_Y + 1][LEVEL_MAX_X +1];
 };
 

@@ -31,13 +31,18 @@ void CWorld::InitEnemies()
 
 void CWorld::run()
 {
+	// Increment counter
 	int count = 0;
+	
+	// Handle to windows console
+	HANDLE hConsole;
+	hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
 
 	while(count != 50)
 	{
-		FillBuffer();		
-		UpdateState(); 
-		DrawState();
+		FillBuffer();
+		UpdateState();
+		DrawState(hConsole);
 		++count;
 		getch();
 	}
@@ -50,10 +55,7 @@ void CWorld::FillBuffer()
 	//Y is outer Loop...X is Inner
 	for(int i = LEVEL_MIN_Y; i <= LEVEL_MAX_Y; i++)
 		for(int j = LEVEL_MIN_X; j <= LEVEL_MAX_X; j++)
-			screenBuffer[i][j] = ' ';
-
-	// Set HomeAgent's Coordinate to # on screenBuffer
-	screenBuffer[robot.GetCoord().Y()][robot.GetCoord().X()] = '#';
+			screenBuffer[i][j] = '.';
 
 	// Cycle through each adversary and set position to 'X'
 	for(vector<CAdversary>::const_iterator i = enemies.begin(); i != enemies.end(); i++)
@@ -65,6 +67,9 @@ void CWorld::FillBuffer()
 	//set the voronoi Points
 	for(vector<CPoint>::size_type i = 0; i != vornoiPoints.size(); i++)
 		screenBuffer[vornoiPoints[i].Y()][vornoiPoints[i].X()] = 'O';
+
+	// Set HomeAgent's Coordinate to # on screenBuffer
+	screenBuffer[robot.GetCoord().Y()][robot.GetCoord().X()] = '#';
 }
 
 void CWorld::UpdateState()
@@ -84,7 +89,7 @@ void CWorld::UpdateState()
 }
 
 
-void CWorld::DrawState()
+void CWorld::DrawState(HANDLE hConsole)
 {
 	// Clear the Screen
 	system("CLS");
@@ -93,11 +98,38 @@ void CWorld::DrawState()
 	for(int i = LEVEL_MIN_Y; i <= LEVEL_MAX_Y; i++)
 	{
 		for(int j = LEVEL_MIN_X; j <= LEVEL_MAX_X; j++)
+		{
+			/* -- Temp Color Hack START (remove for final source) -- */
+			if(screenBuffer[i][j] == '.')
+				SetConsoleTextAttribute(hConsole, 8);
+			if(screenBuffer[i][j] == 'G')
+				SetConsoleTextAttribute(hConsole, 160);
+			if(screenBuffer[i][j] == 'X')
+				SetConsoleTextAttribute(hConsole, 12);
+			if(screenBuffer[i][j] == 'O')
+				SetConsoleTextAttribute(hConsole, 11);
+			if(screenBuffer[i][j] == '#')
+				SetConsoleTextAttribute(hConsole, 224);
+			/* -- Temp Color Hack END -- */
+			
 			cout<<screenBuffer[i][j];
+		}
 		cout<<endl;
 	}
 
-	cout<<"Home Object Coord: "<<robot.GetCoord().X()<<", "<<robot.GetCoord().Y()<<endl;
-	cout<<"Target Node: "<<robot.GetTargetNode().X()<<", "<<robot.GetTargetNode().Y()<<endl;
+	SetConsoleTextAttribute(hConsole, 15);
+	cout<<"\n\n\nNumber of adversaries:\t\t"<<NUM_ENEMIES;
+	cout<<"\nGoal Node:\t\t\t"<<STARTX_GOAL<<", "<<STARTY_GOAL;
+	cout<<"\n\nSet of Relevant Nodes:\t\t[ ";
+	vector<CPoint> relNodes = robot.GetPathNodes();
+	for(vector<CPoint>::size_type i = 0; i != relNodes.size(); i++)
+	{
+		cout<<"{"<<relNodes[i].X()<<", "<<relNodes[i].Y()<<"} ";
+	}
+	cout<<"]";
+	cout<<"\n\nHome Object Coord:\t\t"<<robot.GetCoord().X()<<", "<<robot.GetCoord().Y();
+	cout<<"\nTarget Node:\t\t\t"<<robot.GetTargetNode().X()<<", "<<robot.GetTargetNode().Y();
+
+	
 }
  

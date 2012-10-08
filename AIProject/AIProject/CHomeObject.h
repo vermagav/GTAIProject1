@@ -49,9 +49,15 @@ public:
 		coord = p;
 	}
 
-	CPoint GetTargetNode()
+	CPoint GetTargetNode() const
 	{
 		return targetNode;
+	}
+
+	// Get voronoi path nodes computed by our algorithm
+	std::vector<CPoint> GetPathNodes(void) const
+	{
+		return pathNodes;
 	}
 private:
 	std::vector<CPoint> ComputeRelevant(std::vector<CPoint> points); // 1, 2
@@ -63,6 +69,7 @@ private:
 	int iStepSize;
 	VoronoiDiagramGenerator vdg;
 	CPoint targetNode;
+	std::vector<CPoint> pathNodes;
 };
 
 #endif

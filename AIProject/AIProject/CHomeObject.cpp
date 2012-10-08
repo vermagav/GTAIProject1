@@ -40,7 +40,7 @@ bool operator < (CPoint a, CPoint b)
 vector<CPoint> CHomeObject::MoveObject(vector<CPoint> points)
 {
 	// Remove those Elements from the vector that have been passed
-	vector<CPoint>::size_type i = 0; 
+/*	vector<CPoint>::size_type i = 0; 
 	while(i != points.size())
 	{
 		if(points[i].X() <= coord.X() && points[i].Y() <= coord.Y())
@@ -48,7 +48,7 @@ vector<CPoint> CHomeObject::MoveObject(vector<CPoint> points)
 		else
 			i++;
 	}
-
+*/
 	// Data strucutre for our convenience: size same as points
 	vector<pair<CPoint, double> > distance;
 
@@ -78,7 +78,7 @@ vector<CPoint> CHomeObject::ComputeRelevant(vector<CPoint> points)
 	vector<CPoint> releventNodes;
 
 	// Radius is given by distance of second farthest element + buffer
-	double radius = CPointDistance(points[2], coord) + RADIUS_BUFFER;
+	double radius = CPointDistance(points[1], coord) + RADIUS_BUFFER;
 
 	// Add all points to relevant nodes vector whose distance to coord is less than Radius or until we reach the end (all points within radius)
 	for(vector<CPoint>::const_iterator i = points.begin(); i != points.end() && (CPointDistance((*i), coord)) <= radius; i++)
@@ -89,6 +89,9 @@ vector<CPoint> CHomeObject::ComputeRelevant(vector<CPoint> points)
 
 vector<CPoint> CHomeObject::ComputeNodes(vector<CPoint> relPoints)
 {
+	// Clear pathNodes for fresh computation of Voronoi nodes
+	pathNodes.clear();
+	
 	vector<CPoint> boundaryNodes; 
 
 	// Get the number of relevant Nodes and Store it in size
@@ -119,9 +122,9 @@ vector<CPoint> CHomeObject::ComputeNodes(vector<CPoint> relPoints)
 					}
 	}
 	
-	// Append boundarNodes at the end of RelPoints
-	copy(relPoints.begin(), relPoints.end(), back_inserter(boundaryNodes));
-
+	// Append boundaryNodes at the end of RelPoints
+	copy(boundaryNodes.begin(), boundaryNodes.end(), back_inserter(relPoints));
+/*
 	vector<CPoint>::size_type i = 0; 
 	while(i != relPoints.size())
 	{
@@ -130,13 +133,12 @@ vector<CPoint> CHomeObject::ComputeNodes(vector<CPoint> relPoints)
 		else
 			i++;
 	}
-
-
+*/
 	const size_t size = relPoints.size();
 
 	// Create to arrays to hold the X and Y coordinates. Largest size = NUM_ENEMIES
-	float x[NUM_ENEMIES];
-	float y[NUM_ENEMIES];
+	float x[NUM_ENEMIES * 3];
+	float y[NUM_ENEMIES * 3];
 	
 	// Store X and Y values in the arrays
 	for(size_t i = 0; i != size; i++)
@@ -152,7 +154,6 @@ vector<CPoint> CHomeObject::ComputeNodes(vector<CPoint> relPoints)
 	//store all the lines to be drawn: Graphics purposes
 	//vector< pair<CPoint, CPoint> > voronoiLines;
 	
-	vector<CPoint> pathNodes;
 	//Intermediate data strucute used to get all PathNodes
 	map<CPoint, int> relNodes;
 
@@ -176,6 +177,7 @@ vector<CPoint> CHomeObject::ComputeNodes(vector<CPoint> relPoints)
 
 	// Return the Voronoi PathNodes
 	return pathNodes;
+
 }
 
 vector<CPoint> CHomeObject::MoveToNode(vector<CPoint> pathNodes)
@@ -207,15 +209,19 @@ vector<CPoint> CHomeObject::MoveToNode(vector<CPoint> pathNodes)
 		// Move the Robot to actual Coord in pathNodes indexed by select_index
 		targetNode = CPoint(pathNodes[select_index].X(), pathNodes[select_index].Y());
 
-		//Output target Node
+		// Output target Node
 		std::cout<<"Target Node:"<<targetNode.X()<<", "<<targetNode.Y()<<endl;
+
+		// Check for Free path to goal
+		if(CPointDistance(coord, CPoint(STARTX_GOAL, STARTY_GOAL)) <= CPointDistance(targetNode, CPoint(STARTX_GOAL, STARTY_GOAL)))
+			targetNode = CPoint(STARTX_GOAL, STARTY_GOAL);
 
 		for(int i=0; i != STEP_SIZE_HOMEAGENT; i++)
 		{
 			
-			if( pathNodes[select_index].X() > coord.X() )
+			if( targetNode.X() > coord.X() )
 			{
-				if( pathNodes[select_index].Y() > coord.Y() )
+				if( targetNode.Y() > coord.Y() )
 				{
 					coord.Down();
 					coord.Right();
@@ -226,9 +232,9 @@ vector<CPoint> CHomeObject::MoveToNode(vector<CPoint> pathNodes)
 					coord.Right();
 				}
 			}
-			if( pathNodes[select_index].X() < coord.X() )
+			if( targetNode.X() < coord.X() )
 			{
-				if( pathNodes[select_index].Y() > coord.Y() )
+				if( targetNode.Y() > coord.Y() )
 				{
 					coord.Down();
 					coord.Left();
