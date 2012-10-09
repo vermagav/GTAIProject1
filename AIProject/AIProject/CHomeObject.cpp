@@ -209,9 +209,6 @@ vector<CPoint> CHomeObject::MoveToNode(vector<CPoint> pathNodes)
 		// Move the Robot to actual Coord in pathNodes indexed by select_index
 		targetNode = CPoint(pathNodes[select_index].X(), pathNodes[select_index].Y());
 
-		// Output target Node
-		std::cout<<"Target Node:"<<targetNode.X()<<", "<<targetNode.Y()<<endl;
-
 		// Check for Free path to goal
 		if(CPointDistance(coord, CPoint(STARTX_GOAL, STARTY_GOAL)) <= CPointDistance(targetNode, CPoint(STARTX_GOAL, STARTY_GOAL)))
 			targetNode = CPoint(STARTX_GOAL, STARTY_GOAL);

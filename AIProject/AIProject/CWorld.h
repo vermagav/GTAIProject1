@@ -5,6 +5,7 @@
 #include "CAdversary.h"
 #include <Windows.h>
 
+/* Main class for maintaining and running the world shit */
 class CWorld
 {
 
@@ -14,9 +15,10 @@ public:
 	{
 		//Initialise vector of adversaries
 		InitEnemies();
+		RobotGameState = GAMESTATE_RUNNING;
 	}
 
-	//MAIN GAME LOOP FUNCTION
+	// Main game loop function
 	void run();
 	
 	//Used to cap the Frame Rate
@@ -25,6 +27,9 @@ public:
 private:
 	// Our home agent
 	CHomeObject robot;
+
+	// Game State for keeping track of what state the game currently is in
+	GameState RobotGameState;
 
 	// The enemies that oppose our home agent
 	std::vector<CAdversary> enemies;
@@ -39,6 +44,7 @@ private:
 	void InitEnemies();
 
 	// Required Functions for Game Loop
+	void CheckState(void);
 	void FillBuffer(void);
 	void UpdateState(void);
 	void DrawState(HANDLE);
@@ -55,7 +61,7 @@ private:
 #endif
 
 /*
-	Notes:
+	Implementation Notes:
 		char* screen buffer (use level max X and level max Y), set each value to "."
 		Init(): set HomeAgent position to "#" on screen buffer, cycle through each adversary and set position to "X"
 		Write Draw function: clear screen, output full screen buffer

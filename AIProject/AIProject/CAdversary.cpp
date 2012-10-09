@@ -14,7 +14,6 @@ void CAdversary::MoveRandom(DifficultyMode m)
 	{
 		// rand()%3 -1 generates either -1, 0, 1...
 		case RANDOM_EASY: coord.Move(rand() % 3 - 1, rand() % 3 - 1);
-			// /*DEBUG:*/std::cout<<endl<<coord.X()<<","<<coord.Y()<<endl;
 			break;
 		
 		// All players will home in on the robot - Use Only on Some

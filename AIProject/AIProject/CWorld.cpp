@@ -7,9 +7,9 @@
 
 using std::cout;
 using std::endl;
-
 using std::vector;
 
+/* Initialize enemies and spawn them randomly in our environment */
 void CWorld::InitEnemies()
 {
 	srand(time(0));
@@ -19,36 +19,52 @@ void CWorld::InitEnemies()
 		// Generate Random Numbers to store into x, y
 		// Also add these 10, 20 to config as some constant
 		
-		x = 10 + rand() % (LEVEL_MAX_X - 20);
-		y = 10 + rand() % (LEVEL_MAX_Y - 20);
+		x = 10 + rand() % (LEVEL_MAX_X - 10);
+		y = 10 + rand() % (LEVEL_MAX_Y - 10);
 
-		//Make sure x, y are within walls and not ontop of another agent
+		// Make sure x, y are within walls and not ontop of another agent
 
-		//Add the CAdversary to Enemies
+		// Add the CAdversary to Enemies
 		enemies.push_back(CAdversary(i, x, y));
 	}
 }
 
+/* Main game world looping function */
 void CWorld::run()
 {
-	// Increment counter
-	int count = 0;
-	
-	// Handle to windows console
+	// Handle to windows console, used for changing colors
 	HANDLE hConsole;
 	hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
 
-	while(count != 50)
+	while(RobotGameState == GAMESTATE_RUNNING)
 	{
 		FillBuffer();
 		UpdateState();
+		CheckState();
 		DrawState(hConsole);
-		++count;
-		getch();
+		//getch();
 	}
 	return;
 }
 
+/* Check state of the game world and update based on the Home Agent's coordinates */
+void CWorld::CheckState()
+{
+	// Condition 1: Check if Robot Won
+	if(  ((robot.GetCoord().X() >= STARTX_GOAL - WIN_BUFFER) && (robot.GetCoord().X() <= STARTX_GOAL + WIN_BUFFER))
+	  && ((robot.GetCoord().Y() >= STARTY_GOAL - WIN_BUFFER) && (robot.GetCoord().Y() <= STARTY_GOAL + WIN_BUFFER)) )
+	{
+		RobotGameState = GAMESTATE_WIN;
+	}else
+	// Condition 2: Check if Robot Failed
+		for(vector<CPoint>::size_type i = 0; i != enemies.size(); i++)
+		{
+			if(robot.GetCoord().X() == enemies[i].getCoord().X() && robot.GetCoord().Y() == enemies[i].getCoord().Y())
+				RobotGameState = GAMESTATE_FAIL;
+		}
+}
+
+/* Populate the screen buffer in our textual representation of the game world */
 void CWorld::FillBuffer()
 {
 	// Initialise the Entire Level to '.'
@@ -61,17 +77,18 @@ void CWorld::FillBuffer()
 	for(vector<CAdversary>::const_iterator i = enemies.begin(); i != enemies.end(); i++)
 		screenBuffer[i->getCoord().Y()][i->getCoord().X()] = 'X';
 
-	// Draw Goal Node on ScreenBuffer
-	screenBuffer[goalCoord.Y()][goalCoord.X()] = 'G';
-
 	//set the voronoi Points
 	for(vector<CPoint>::size_type i = 0; i != vornoiPoints.size(); i++)
 		screenBuffer[vornoiPoints[i].Y()][vornoiPoints[i].X()] = 'O';
 
-	// Set HomeAgent's Coordinate to # on screenBuffer
+	// Draw Goal Node on ScreenBuffer
+	screenBuffer[goalCoord.Y()][goalCoord.X()] = 'G';
+
+	// Set HomeAgent's Coordinate to # on screenBuffer (make sure # is last in this function)
 	screenBuffer[robot.GetCoord().Y()][robot.GetCoord().X()] = '#';
 }
 
+/* Update the world state */
 void CWorld::UpdateState()
 {
 	// Get All the Coords of the Enemies
@@ -88,7 +105,7 @@ void CWorld::UpdateState()
 		i->MoveRandom(RANDOM_EASY);
 }
 
-
+/* Output world state and several debug console messages */
 void CWorld::DrawState(HANDLE hConsole)
 {
 	// Clear the Screen
@@ -130,6 +147,17 @@ void CWorld::DrawState(HANDLE hConsole)
 	cout<<"\n\nHome Object Coord:\t\t"<<robot.GetCoord().X()<<", "<<robot.GetCoord().Y();
 	cout<<"\nTarget Node:\t\t\t"<<robot.GetTargetNode().X()<<", "<<robot.GetTargetNode().Y();
 
-	
+	// Check if the Home Agent won the game
+	if(RobotGameState == GAMESTATE_WIN)
+	{
+		SetConsoleTextAttribute(hConsole, 160);
+		cout<<"\n\n\n\t\t\t\tVICTORY CONDITION ACHIEVED! The Home Agent has succesfully reached the Goal Node.";
+	}
+	// Check if the Home Agent lost the game
+	else if(RobotGameState == GAMESTATE_FAIL)
+	{
+		SetConsoleTextAttribute(hConsole, 192);
+		cout<<"\n\n\n\t\t\t\tALGORITHM FAILED! The Home Agent was captured by an adversary.";
+	}
 }
  
