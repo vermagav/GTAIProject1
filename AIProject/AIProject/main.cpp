@@ -11,6 +11,12 @@ using std::cout;
 
 int main()
 {
+	// Create a World State object and run the main game loop
+	CWorld world;
+	world.Run();
+	
+	/* // Uncomment this to run a simulation
+	
 	long double winCount = 0;
 	long double loseCount = 0;
 
@@ -28,6 +34,8 @@ int main()
 		cout<<"\nWin Count:\t"<<winCount;
 		cout<<"\nLose Count:\t"<<loseCount;
 	}
+	*/
+
 	getch();
 	return 0;
 }
