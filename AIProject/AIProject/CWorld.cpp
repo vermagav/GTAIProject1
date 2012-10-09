@@ -141,7 +141,7 @@ void CWorld::UpdateState()
 void CWorld::DrawState(HANDLE hConsole)
 {
 	SetConsoleTextAttribute(hConsole, 7);
-
+/*
 	// Clear the Screen
 	system("CLS");
 
@@ -150,7 +150,7 @@ void CWorld::DrawState(HANDLE hConsole)
 	{
 		for(int j = LEVEL_MIN_X; j <= LEVEL_MAX_X; j++)
 		{
-			// Temp Color Hack START (remove for final source
+			// Temp Color Hack START (remove for final source)
 			if(screenBuffer[i][j] == '.')
 				SetConsoleTextAttribute(hConsole, 8);
 			if(screenBuffer[i][j] == 'G')
@@ -192,5 +192,5 @@ void CWorld::DrawState(HANDLE hConsole)
 		SetConsoleTextAttribute(hConsole, 192);
 		cout<<"\n\n\n\t\t\t\tALGORITHM FAILED! The Home Agent was captured by an adversary.";
 	}
-
+*/
 }
