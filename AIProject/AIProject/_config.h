@@ -22,7 +22,7 @@ const int STEP_SIZE_ADVERSARY = 1;
 const int STARTX_HOMEAGENT = 0;
 const int STARTY_HOMEAGENT = 0;
 const int STARTX_GOAL = 140;
-const int STARTY_GOAL = 50;
+const int STARTY_GOAL = 48;
 
 // Boundary constants for the level
 const int LEVEL_MIN_X = 0;

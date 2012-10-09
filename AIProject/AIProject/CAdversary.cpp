@@ -19,16 +19,26 @@ void CAdversary::MoveRandom(DifficultyMode m)
 		// All players will home in on the robot - Use Only on Some
 		case RANDOM_NORMAL:
 			{
-				/*
-				float x = homeCoord.X() - coord.X();
-				float y = homeCoord.Y() - coord.Y();
+				
+				float x = goalCoord.X() - coord.X();
+				float y = goalCoord.Y() - coord.Y();
 			
 				float magnitude = sqrt((x * x + y * y));
 				x /= magnitude;
 				y /= magnitude;
+				
+				if(x <= -0.5)
+					coord.Left();
+				else
+					if(x >= 0.5)
+						coord.Right();
 
-				coord.Move((int)x, (int)y);
-				*/
+				if(y <= -0.5)
+					coord.Up();
+				else
+					if(y >= 0.5)
+						coord.Down();
+
 			}
 			break;
 

@@ -134,14 +134,17 @@ void CWorld::UpdateState()
 
 	//Call Random Motion on the Robots
 	for(vector<CAdversary>::iterator i = enemies.begin(); i != enemies.end(); i++)
-		i->MoveRandom(RANDOM_EASY);
+	{
+		i->SetGoalCoord(robot.GetCoord());
+		i->MoveRandom(RANDOM_NORMAL);
+	}     
 }
 
 /* Output world state and several debug console messages */
 void CWorld::DrawState(HANDLE hConsole)
 {
 	SetConsoleTextAttribute(hConsole, 7);
-/*
+
 	// Clear the Screen
 	system("CLS");
 
@@ -192,5 +195,4 @@ void CWorld::DrawState(HANDLE hConsole)
 		SetConsoleTextAttribute(hConsole, 192);
 		cout<<"\n\n\n\t\t\t\tALGORITHM FAILED! The Home Agent was captured by an adversary.";
 	}
-*/
 }

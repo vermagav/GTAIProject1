@@ -26,10 +26,23 @@ public:
 		coord = p;
 	}
 
+	void SetGoalCoord(CPoint p)
+	{
+		// check point within boundaries
+		goalCoord = p;
+	}
+
+	CPoint getGoalCoord() const
+	{
+		return goalCoord;
+	}
+
+	
 private:
 	int iId;
 	int iStepSize;
 	CPoint coord;
+	CPoint goalCoord;
 };
 
 #endif
