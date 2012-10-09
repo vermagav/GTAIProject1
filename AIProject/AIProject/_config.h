@@ -15,7 +15,7 @@ enum GameState
 };
 
 // Step size for home agent and adversary
-const int STEP_SIZE_HOMEAGENT = 2;
+const int STEP_SIZE_HOMEAGENT = 5;
 const int STEP_SIZE_ADVERSARY = 1;
 
 // Start position of home agent
@@ -31,7 +31,7 @@ const int LEVEL_MIN_Y = 0;
 const int LEVEL_MAX_Y = 50;
 
 // Number of enemies
-const int NUM_ENEMIES = 50;
+const int NUM_ENEMIES = 10;
 
 // Number of moves per second
 const int NUM_MOVES_PER_SEC = 1;

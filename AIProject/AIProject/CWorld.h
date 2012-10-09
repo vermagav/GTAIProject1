@@ -5,7 +5,7 @@
 #include "CAdversary.h"
 #include <Windows.h>
 
-/* Main class for maintaining and running the world shit */
+/* Main class for maintaining and running the world state */
 class CWorld
 {
 
@@ -19,7 +19,7 @@ public:
 	}
 
 	// Main game loop function
-	void run();
+	GameState Run();
 	
 	//Used to cap the Frame Rate
 	static const int GAME_SPEED = 50;

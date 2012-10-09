@@ -12,10 +12,11 @@ using std::vector;
 /* Initialize enemies and spawn them randomly in our environment */
 void CWorld::InitEnemies()
 {
-	srand(time(0));
-	for(vector<CAdversary>::size_type i = 0; i != NUM_ENEMIES; i++)
+	int x, y;
+	for(vector<CAdversary>::size_type i = 0; i != NUM_ENEMIES/5; i++)
 	{
-		int x = 0, y = 0;
+		x = 0;
+		y = 0;
 		// Generate Random Numbers to store into x, y
 		// Also add these 10, 20 to config as some constant
 		
@@ -27,10 +28,41 @@ void CWorld::InitEnemies()
 		// Add the CAdversary to Enemies
 		enemies.push_back(CAdversary(i, x, y));
 	}
+	for(vector<CAdversary>::size_type i = 0; i != (3*NUM_ENEMIES)/5; i++)
+	{
+		x = 0;
+		y = 0;
+		// Generate Random Numbers to store into x, y
+		// Also add these 10, 20 to config as some constant
+		
+		x = 10 + rand() % (LEVEL_MAX_X - 10);
+		y = 10 + rand() % (LEVEL_MAX_Y - 10);
+
+		// Make sure x, y are within walls and not ontop of another agent
+
+		// Add the CAdversary to Enemies
+		enemies.push_back(CAdversary(i, x, y));
+	}
+	for(vector<CAdversary>::size_type i = 0; i != NUM_ENEMIES/5; i++)
+	{
+		x = 0;
+		y = 0;
+		// Generate Random Numbers to store into x, y
+		// Also add these 10, 20 to config as some constant
+		
+		x = 10 + rand() % (LEVEL_MAX_X - 10);
+		y = 10 + rand() % (LEVEL_MAX_Y - 10);
+
+		// Make sure x, y are within walls and not ontop of another agent
+
+		// Add the CAdversary to Enemies
+		enemies.push_back(CAdversary(i, x, y));
+	}
+
 }
 
 /* Main game world looping function */
-void CWorld::run()
+GameState CWorld::Run()
 {
 	// Handle to windows console, used for changing colors
 	HANDLE hConsole;
@@ -44,7 +76,7 @@ void CWorld::run()
 		DrawState(hConsole);
 		//getch();
 	}
-	return;
+	return RobotGameState;
 }
 
 /* Check state of the game world and update based on the Home Agent's coordinates */
@@ -108,15 +140,17 @@ void CWorld::UpdateState()
 /* Output world state and several debug console messages */
 void CWorld::DrawState(HANDLE hConsole)
 {
+	SetConsoleTextAttribute(hConsole, 7);
+/*
 	// Clear the Screen
 	system("CLS");
-	
+
 	// Display the Screen
 	for(int i = LEVEL_MIN_Y; i <= LEVEL_MAX_Y; i++)
 	{
 		for(int j = LEVEL_MIN_X; j <= LEVEL_MAX_X; j++)
 		{
-			/* -- Temp Color Hack START (remove for final source) -- */
+			// Temp Color Hack START (remove for final source
 			if(screenBuffer[i][j] == '.')
 				SetConsoleTextAttribute(hConsole, 8);
 			if(screenBuffer[i][j] == 'G')
@@ -127,7 +161,6 @@ void CWorld::DrawState(HANDLE hConsole)
 				SetConsoleTextAttribute(hConsole, 11);
 			if(screenBuffer[i][j] == '#')
 				SetConsoleTextAttribute(hConsole, 224);
-			/* -- Temp Color Hack END -- */
 			
 			cout<<screenBuffer[i][j];
 		}
@@ -159,5 +192,5 @@ void CWorld::DrawState(HANDLE hConsole)
 		SetConsoleTextAttribute(hConsole, 192);
 		cout<<"\n\n\n\t\t\t\tALGORITHM FAILED! The Home Agent was captured by an adversary.";
 	}
+*/
 }
- 

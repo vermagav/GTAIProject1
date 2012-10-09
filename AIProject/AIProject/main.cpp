@@ -5,14 +5,29 @@
 #include "_config.h"
 #include "CWorld.h"
 #include <conio.h>
+#include <iostream>
+
+using std::cout;
 
 int main()
 {
-	//Ceate the World and Run It
-	CWorld world;
+	long double winCount = 0;
+	long double loseCount = 0;
 
-	world.run();
-
+	for(long double i = 1; i <= 1.7e307; i++)
+	{
+		// Create the World and Run It
+		CWorld world;
+		
+		// Increment Win and Loss Count
+		if(world.Run() == GAMESTATE_WIN)
+			winCount++;
+		else
+			loseCount++;
+		system("CLS");
+		cout<<"\nWin Count:\t"<<winCount;
+		cout<<"\nLose Count:\t"<<loseCount;
+	}
 	getch();
 	return 0;
 }
