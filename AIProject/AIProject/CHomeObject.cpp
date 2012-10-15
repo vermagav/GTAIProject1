@@ -163,11 +163,11 @@ vector<CPoint> CHomeObject::ComputeNodes(vector<CPoint> relPoints)
 		//voronoiLines.push_back(make_pair(CPoint((int)x1, (int)y1), CPoint((int)x2, (int)y2)));
 		
 		// If x1, y1 are within the boundary, increment their count
-		if(x1 >= LEVEL_MIN_X && x1 <= LEVEL_MAX_X && y1 >= LEVEL_MIN_Y && y1 <= LEVEL_MAX_Y)
+		if(x1 > LEVEL_MIN_X && x1 < LEVEL_MAX_X && y1 > LEVEL_MIN_Y && y1 < LEVEL_MAX_Y)
 			++relNodes[CPoint((int)x1, (int)y1)];
 		            
 		// If x2, y2 are within the boundary, increment their count
-		if(x2 >= LEVEL_MIN_X && x2 <= LEVEL_MAX_X && y2>= LEVEL_MIN_Y && y2 <= LEVEL_MAX_Y)
+		if(x2 > LEVEL_MIN_X && x2 < LEVEL_MAX_X && y2 > LEVEL_MIN_Y && y2 < LEVEL_MAX_Y)
 			++relNodes[CPoint((int)x2, (int)y2)];
 	}
 

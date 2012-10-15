@@ -28,16 +28,16 @@ void CAdversary::MoveRandom(DifficultyMode m)
 				y /= magnitude;
 				
 				if(x <= -0.5)
-					coord.Left();
+					coord.Left(STEP_SIZE_ADVERSARY);
 				else
 					if(x >= 0.5)
-						coord.Right();
+						coord.Right(STEP_SIZE_ADVERSARY);
 
 				if(y <= -0.5)
-					coord.Up();
+					coord.Up(STEP_SIZE_ADVERSARY);
 				else
 					if(y >= 0.5)
-						coord.Down();
+						coord.Down(STEP_SIZE_ADVERSARY);
 
 			}
 			break;

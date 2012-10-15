@@ -15,7 +15,7 @@ enum GameState
 };
 
 // Step size for home agent and adversary
-const int STEP_SIZE_HOMEAGENT = 5;
+const int STEP_SIZE_HOMEAGENT = 3;
 const int STEP_SIZE_ADVERSARY = 1;
 
 // Start position of home agent
@@ -45,15 +45,18 @@ enum DifficultyMode
 	NUM_OF_MODES
 };
 
+// Change this to change the current difficulty
+const DifficultyMode CURRENT_DIFFICULTY = RANDOM_EASY;
+
 /* Algorithm Related Config */
 
 	// Radius Computation Buffer
-	const int RADIUS_BUFFER = 20;
+	const int RADIUS_BUFFER = 10;
 	// Victory Check Buffer
 	const int WIN_BUFFER = 3;
 	// Node Heuristic Weightage: Distance from <Home Agent> to <Path Node>
-	const double NODE_WEIGHTAGE_D1 = 0.3;
+	const double NODE_WEIGHTAGE_D1 = 0.45;
 	// Node Heuristic Weightage: Distance from <Path Node> to <Goal>
-	const double NODE_WEIGHTAGE_D2 = 0.7;
+	const double NODE_WEIGHTAGE_D2 = 0.55;
 
 #endif

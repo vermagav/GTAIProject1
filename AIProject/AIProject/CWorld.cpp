@@ -13,7 +13,9 @@ using std::vector;
 void CWorld::InitEnemies()
 {
 	int x, y;
-	for(vector<CAdversary>::size_type i = 0; i != NUM_ENEMIES/5; i++)
+	srand(time(0));
+
+	for(vector<CAdversary>::size_type i = 0; i != NUM_ENEMIES; i++)
 	{
 		x = 0;
 		y = 0;
@@ -28,37 +30,6 @@ void CWorld::InitEnemies()
 		// Add the CAdversary to Enemies
 		enemies.push_back(CAdversary(i, x, y));
 	}
-	for(vector<CAdversary>::size_type i = 0; i != (3*NUM_ENEMIES)/5; i++)
-	{
-		x = 0;
-		y = 0;
-		// Generate Random Numbers to store into x, y
-		// Also add these 10, 20 to config as some constant
-		
-		x = 10 + rand() % (LEVEL_MAX_X - 10);
-		y = 10 + rand() % (LEVEL_MAX_Y - 10);
-
-		// Make sure x, y are within walls and not ontop of another agent
-
-		// Add the CAdversary to Enemies
-		enemies.push_back(CAdversary(i, x, y));
-	}
-	for(vector<CAdversary>::size_type i = 0; i != NUM_ENEMIES/5; i++)
-	{
-		x = 0;
-		y = 0;
-		// Generate Random Numbers to store into x, y
-		// Also add these 10, 20 to config as some constant
-		
-		x = 10 + rand() % (LEVEL_MAX_X - 10);
-		y = 10 + rand() % (LEVEL_MAX_Y - 10);
-
-		// Make sure x, y are within walls and not ontop of another agent
-
-		// Add the CAdversary to Enemies
-		enemies.push_back(CAdversary(i, x, y));
-	}
-
 }
 
 /* Main game world looping function */
@@ -71,8 +42,8 @@ GameState CWorld::Run()
 	while(RobotGameState == GAMESTATE_RUNNING)
 	{
 		FillBuffer();
-		UpdateState();
 		CheckState();
+		UpdateState();
 		DrawState(hConsole);
 		//getch();
 	}
@@ -132,11 +103,11 @@ void CWorld::UpdateState()
 	// Compute Voronoi for Robot and Move the Robot Step Size in Its Direction
 	vornoiPoints = robot.MoveObject(points);
 
-	//Call Random Motion on the Robots
+	// Call Random Motion on the Robots
 	for(vector<CAdversary>::iterator i = enemies.begin(); i != enemies.end(); i++)
 	{
 		i->SetGoalCoord(robot.GetCoord());
-		i->MoveRandom(RANDOM_NORMAL);
+		i->MoveRandom(CURRENT_DIFFICULTY);
 	}     
 }
 
@@ -144,7 +115,7 @@ void CWorld::UpdateState()
 void CWorld::DrawState(HANDLE hConsole)
 {
 	SetConsoleTextAttribute(hConsole, 7);
-
+	
 	// Clear the Screen
 	system("CLS");
 
@@ -160,6 +131,8 @@ void CWorld::DrawState(HANDLE hConsole)
 				SetConsoleTextAttribute(hConsole, 160);
 			if(screenBuffer[i][j] == 'X')
 				SetConsoleTextAttribute(hConsole, 12);
+			if(j == robot.GetTargetNode().X() && i == robot.GetTargetNode().Y())
+				SetConsoleTextAttribute(hConsole, 160);
 			if(screenBuffer[i][j] == 'O')
 				SetConsoleTextAttribute(hConsole, 11);
 			if(screenBuffer[i][j] == '#')
@@ -195,4 +168,5 @@ void CWorld::DrawState(HANDLE hConsole)
 		SetConsoleTextAttribute(hConsole, 192);
 		cout<<"\n\n\n\t\t\t\tALGORITHM FAILED! The Home Agent was captured by an adversary.";
 	}
+	
 }
