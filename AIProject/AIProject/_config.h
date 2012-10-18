@@ -15,7 +15,7 @@ enum GameState
 };
 
 // Step size for home agent and adversary
-const int STEP_SIZE_HOMEAGENT = 3;
+const int STEP_SIZE_HOMEAGENT = 4;
 const int STEP_SIZE_ADVERSARY = 1;
 
 // Start position of home agent
@@ -31,7 +31,7 @@ const int LEVEL_MIN_Y = 0;
 const int LEVEL_MAX_Y = 50;
 
 // Number of enemies
-const int NUM_ENEMIES = 20;
+const int NUM_ENEMIES = 25;
 
 // Number of moves per second
 const int NUM_MOVES_PER_SEC = 1;
@@ -45,14 +45,14 @@ enum DifficultyMode
 	NUM_OF_MODES
 };
 
-// Change this to change the current difficulty
-const DifficultyMode CURRENT_DIFFICULTY = RANDOM_EASY;
+// Change this to alter the current difficulty
+const DifficultyMode CURRENT_DIFFICULTY = RANDOM_NORMAL;
 
 /* Algorithm Related Config */
 
 	// Radius Computation Buffer
 	const int RADIUS_BUFFER = 10;
-	// Victory Check Buffer
+	// Victory Check Buffer Radius
 	const int WIN_BUFFER = 3;
 	// Node Heuristic Weightage: Distance from <Home Agent> to <Path Node>
 	const double NODE_WEIGHTAGE_D1 = 0.45;

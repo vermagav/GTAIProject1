@@ -115,7 +115,7 @@ void CWorld::UpdateState()
 void CWorld::DrawState(HANDLE hConsole)
 {
 	SetConsoleTextAttribute(hConsole, 7);
-	
+	/* // -- Comment for simulation mode
 	// Clear the Screen
 	system("CLS");
 
@@ -168,5 +168,5 @@ void CWorld::DrawState(HANDLE hConsole)
 		SetConsoleTextAttribute(hConsole, 192);
 		cout<<"\n\n\n\t\t\t\tALGORITHM FAILED! The Home Agent was captured by an adversary.";
 	}
-	
+	*/
 }

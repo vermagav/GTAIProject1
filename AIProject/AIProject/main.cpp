@@ -21,6 +21,9 @@ void RunSimulation(CWorld *world)
 	// Counters
 	long double winCount = 0;
 	long double loseCount = 0;
+	
+	cout<<"Press any key to begin simulation for "<<NUM_ENEMIES<<" enemies.";
+	getch();
 
 	// Loop multiple simulations
 	for(long double i = 1; i <= 1.7e307; i++)
@@ -50,10 +53,10 @@ int main()
 	CWorld *world = new CWorld;
 		
 	// Run once
-	RunOnce(world);
+	//RunOnce(world);
 
 	// Run simulation
-	//RunSimulation(world);
+	RunSimulation(world);
 
 	return 0;
 }
